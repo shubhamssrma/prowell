@@ -23,7 +23,7 @@ export default function Home() {
       <HeroSection />
       {/* <WelcomeSection/> */}
 
-      
+
 
 
       <SkincareProductsUI />
@@ -69,24 +69,27 @@ export default function Home() {
 
               <div className="space-y-4 text-gray-700 text-base sm:text-lg">
                 <p>
-                  We deliver uncompromising quality through transparent processes, rigorous testing, and reliable supply chains to build and maintain trust at every stage.
+                  At Prowell Lifesciences, we believe healthy animals mean healthy progress. Founded in 2023, our mission is simple: to support farmers with solutions that protect livestock, improve performance, and build a sustainable future for animal production in India.
                 </p>
                 <p>
-                  Empowering agricultural excellence through innovation, integrity, and unwavering commitment to farmer success
+                  What sets us apart is how we bring proven science to practical use. Our feed supplements and health solutions are designed to safeguard gut health, reduce disease risks, and help animals grow stronger and more productive, while minimizing resistance challenges. Behind every product lies careful research, trusted partnerships with consistent quality, and a deep understanding of farmers&apos; needs.
+                </p>
+                <p>
+                  For us, progress is not just about products. It&apos;s about people. We see our role as partners - sharing knowledge, building trust, and raising standards together. Whether you are a farmer, distributor, or someone who cares about animal welfare, our commitment remains the same: to create solutions that make farming healthier, more sustainable, and more rewarding for everyone.
                 </p>
                 <div className="flex flex-wrap gap-4 pt-4">
                   {/* Learn More Button */}
-                  <button className="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md transition-colors duration-200 shadow-md hover:shadow-lg">
+                  <Link href="/contact" className="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md transition-colors duration-200 shadow-md hover:shadow-lg">
                     CONTACT US
-                  </button>
+                  </Link>
 
                   {/* Watch Video Button */}
-                  <button className="px-8 py-3 bg-white hover:bg-gray-50 text-green-500 font-semibold rounded-md border-2 border-green-500 transition-colors duration-200 flex items-center gap-2 shadow-sm hover:shadow-md">
+                  {/* <button className="px-8 py-3 bg-white hover:bg-gray-50 text-green-500 font-semibold rounded-md border-2 border-green-500 transition-colors duration-200 flex items-center gap-2 shadow-sm hover:shadow-md">
                     <span>Watch Video</span>
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
                     </svg>
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -94,7 +97,7 @@ export default function Home() {
         </div>
       </section>
 
-      <OurTeamSection showCta={false}/>
+      <OurTeamSection showCta={false} />
       <Testimonials
         variant="carousel"           // 'default' | 'carousel' | 'grid' | 'minimal'
         maxItems={6}                 // Limit number of testimonials shown

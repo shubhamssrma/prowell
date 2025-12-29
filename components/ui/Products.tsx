@@ -18,57 +18,59 @@ interface Product {
 const products: Product[] = [
     {
         id: 1,
-        name: 'Probiotics',
+        name: 'Promax',
         price: 29.00,
-        image: "/images/products/Probiotic.jpg",
+        image: "/images/products/Promax.jpg",
         badge: undefined,
-        slug: "probiotics",
+        slug: "promax",
         category: "test"
     },
     {
         id: 2,
-        name: 'Antibiotic Growth Promoter',
+        name: 'Promensin 200',
         price: 23.00,
-        image: "/images/products/Antibiotic_Growth_Promoter.jpg",
-        badge: 'New',
-        slug: 'Antibiotic-Growth-Promoter',
+        image: "/images/products/Promensin_200.jpeg",
+        // badge: 'New',
+        badge: undefined,
+        slug: 'promensin-200',
         category: "test"
     },
     {
         id: 3,
-        name: 'Bile Acid',
+        name: 'Probuty TB 60',
         price: 25.00,
         originalPrice: 85.00,
-        image: "/images/products/Bile_Acid.jpg",
-        badge: 'Sale',
-        slug: 'Bile-Acid',
+        image: "/images/products/Probuty_TB_60.jpg",
+        // badge: 'Sale',
+        badge: undefined,
+        slug: 'probuty-tb-60',
         category: "test"
     },
     {
         id: 4,
-        name: 'Chemical Anticoccidial',
+        name: 'Promycin M',
         price: 27.00,
-        image: "/images/products/Chemical_Anticoccidial.jpg",
+        image: "/images/products/Promycin_M.jpg",
         badge: undefined,
-        slug: 'Chemical-Anticoccidial',
+        slug: 'promycin-m',
         category: "test"
     },
     {
         id: 5,
-        name: 'Combination Anticoccidial',
+        name: 'Protide 10',
         price: 27.00,
-        image: "/images/products/Combination_Anticoccidial.jpg",
+        image: "/images/products/Protide_10.jpg",
         badge: undefined,
-        slug: 'Combination-Anticoccidial',
+        slug: 'protide-10',
         category: "test"
     },
     {
         id: 6,
-        name: 'Ionophore Coccidiostat',
+        name: 'Proquin 60',
         price: 27.00,
-        image: "/images/products/Ionophore_Coccidiostat.jpg",
+        image: "/images/products/Proquin_60.jpg",
         badge: undefined,
-        slug: 'Ionophore-Coccidiostat',
+        slug: 'proquin-60',
         category: "test"
     }
 ];
@@ -91,7 +93,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="bg-gray-100 rounded-lg overflow-hidden relative aspect-[3/4] mb-4">
+            <div className="bg-white-100 shadow-lg rounded-lg overflow-hidden relative aspect-[3/4] mb-4">
                 {product.badge && (
                     <div className={`absolute top-4 left-4 px-3 py-1 rounded text-white text-sm font-medium z-10 ${product.badge === 'New' ? 'bg-orange-600' : 'bg-teal-700'
                         }`}>
@@ -102,7 +104,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                 <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                 />
 
                 {/* Hover Actions */}
@@ -139,7 +141,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             </div>
 
             <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-1">
+                {/* <div className="flex items-center justify-center gap-2 mb-1">
                     {product.originalPrice && (
                         <span className="text-gray-400 line-through text-sm">
                             ${product.originalPrice.toFixed(2)}
@@ -148,7 +150,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                     <span className="text-lg font-semibold">
                         ${product.price.toFixed(2)}
                     </span>
-                </div>
+                </div> */}
                 <h3 className="text-gray-800 font-medium">
                     <Link href={`/products/${product.category}/${product.slug}`}>{product.name}</Link>
                 </h3>
@@ -215,9 +217,8 @@ const SkincareProductsUI: React.FC = () => {
             </div>
 
             {/* Promotional Banners */}
-            <div className="max-w-7xl mx-auto px-8 py-8">
+            {/* <div className="max-w-7xl mx-auto px-8 py-8">
                 <div className="grid md:grid-cols-2 gap-6 mb-16">
-                    {/* New Collection Banner */}
                     <div className="bg-gray-50 rounded-lg p-12 flex items-center justify-between" >
                         <div className="max-w-xs">
                             <p className="text-xs font-semibold text-gray-600 tracking-wider mb-2">NEW COLLECTION</p>
@@ -230,7 +231,6 @@ const SkincareProductsUI: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Sale Banner */}
                     <div className="bg-teal-100 rounded-lg p-12 flex items-center justify-between overflow-hidden relative">
                         <div className="z-10">
                             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -246,7 +246,6 @@ const SkincareProductsUI: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Features Section */}
                 <div className="grid grid-cols-4 gap-8 py-12">
                     <div className="text-center">
                         <div className="flex justify-center mb-4">
@@ -280,7 +279,7 @@ const SkincareProductsUI: React.FC = () => {
                         <p className="text-gray-500 text-sm">Pay with Multiple Credit Cards</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

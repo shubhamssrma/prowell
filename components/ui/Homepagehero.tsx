@@ -178,41 +178,42 @@ import React, { useState, useEffect } from 'react';
 
 interface Slide {
     id: number;
-    subtitle: string;
+    subtitle?: string;
     title: string;
     description: string;
     backgroundImage: string;
     buttonText: string;
-    href:string
+    href: string
 }
 
 const slides: Slide[] = [
     {
         id: 1,
-        subtitle: 'ESSENTIAL ITEMS',
-        title: 'Science That Strengthens Every Flock',
-        description: 'Proven poultry medicines and feed supplements for better performance, gut health, and sustainable growth',
-        backgroundImage: '/images/banner/slide1.png',
-        buttonText: 'Explore More',
-        href: `/products/by-species/testing`
+        // subtitle: 'ESSENTIAL ITEMS',
+        title: 'Global Expertise Local Commitment',
+        description: 'At Prowell Lifesciences, we believe healthy animals mean healthy progress. Founded in 2023, our mission is simple: to support farmers with solutions that protect livestock, improve performance, and build a sustainable future for animal production in India.',
+        backgroundImage: '/images/banner/banner1.png',
+        buttonText: 'Contact US',
+        href: `/contact`
+
     },
     {
         id: 2,
-        subtitle: 'NEW COLLECTION',
-        title: 'Healthier Birds. Better Performance. Proven Results',
-        description: 'Scientifically backed solutions to boost gut health, productivity, and long-term sustainability',
-        backgroundImage: '/images/banner/slide1.png',
-        buttonText: 'Contact US',
-        href: `/contact`
+        // subtitle: 'NEW COLLECTION',
+        title: 'Healthy Poultry Sustainable Future',
+        description: 'What sets us apart is how we bring proven science to practical use. Our feed supplements and health solutions are designed to safeguard gut health, reduce disease risks, and help animals grow stronger and more productive, while minimizing resistance challenges. Behind every product lies careful research, trusted partnerships with consistent quality, and a deep understanding of farmers’ needs.',
+        backgroundImage: '/images/banner/banner1.png',
+        buttonText: 'Explore More',
+        href: `/products/by-species`
     },
     {
         id: 3,
-        subtitle: 'BEST SELLERS',
-        title: 'Smarter Nutrition for Stronger, Sustainable Poultry.',
-        description: 'Advanced medicines and feed supplements designed to improve performance and flock wellness',
-        backgroundImage: '/images/banner/slide1.png',
-        buttonText: 'Shop Collection',
-        href: `/products/by-species/testing`
+        // subtitle: 'BEST SELLERS',
+        title: 'Quality you can see, Integrity you can trust',
+        description: 'For us, progress is not just about products. It’s about people. We see our role as partners - sharing knowledge, building trust, and raising standards together. Whether you are a farmer, distributor, or someone who cares about animal welfare, our commitment remains the same: to create solutions that make farming healthier, more sustainable, and more rewarding for everyone.',
+        backgroundImage: '/images/banner/banner1.png',
+        buttonText: 'Need Help?',
+        href: `/resource-center/faqs`
     }
 ];
 
@@ -328,7 +329,7 @@ const BeautyHeroSlider: React.FC = () => {
                         onClick={() => goToSlide(index)}
                         className={`transition-all duration-300 rounded-full ${index === currentSlide
                             ? 'w-8 h-3 bg-cyan-500'
-                            : 'w-3 h-3 bg-gray-400 hover:bg-gray-600'
+                            : 'w-3 h-3 bg-white hover:bg-cyan-600'
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />

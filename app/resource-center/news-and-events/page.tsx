@@ -88,15 +88,11 @@ const ImageGallery: React.FC = () => {
   const [liked, setLiked] = useState<Set<number>>(new Set());
 
   const images: Image[] = [
-    { id: 1, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800', title: 'Mountain Vista', category: 'Nature' },
-    { id: 2, url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800', title: 'Forest Path', category: 'Nature' },
-    { id: 3, url: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800', title: 'Sunset Beach', category: 'Beach' },
-    { id: 4, url: 'https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=800', title: 'City Lights', category: 'Urban' },
-    { id: 5, url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800', title: 'Misty Morning', category: 'Nature' },
-    { id: 6, url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800', title: 'Tropical Paradise', category: 'Beach' },
-    { id: 7, url: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800', title: 'Night City', category: 'Urban' },
-    { id: 8, url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800', title: 'Green Valley', category: 'Nature' },
-    { id: 9, url: 'https://images.unsplash.com/photo-1502933691298-84fc14542831?w=800', title: 'Ocean Waves', category: 'Beach' },
+    { id: 1, url: '/images/gallery/image1.jpeg', title: 'Mountain Vista', category: 'Events' },
+    { id: 2, url: '/images/gallery/image2.jpg', title: 'Forest Path', category: 'Events' },
+    { id: 3, url: '/images/gallery/image3.jpg', title: 'Sunset Beach', category: 'News' },
+    { id: 4, url: '/images/gallery/image4.jpg', title: 'City Lights', category: 'News' },
+    { id: 5, url: '/images/gallery/image5.jpg', title: 'Misty Morning', category: 'Events' },
   ];
 
   const categories = ['All', ...Array.from(new Set(images.map(img => img.category)))];

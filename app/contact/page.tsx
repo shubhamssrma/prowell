@@ -341,7 +341,7 @@ export default function ContactUsPage() {
                   <Phone size={20} />
                   <div>
                     <p className="text-xs text-cyan-100">Hotline</p>
-                    <p className="font-semibold">+971 58 498 3456</p>
+                    <p className="font-semibold">+91 96506 68744</p>
                   </div>
                 </div>
 
@@ -349,7 +349,7 @@ export default function ContactUsPage() {
                   <MessageSquare size={20} />
                   <div>
                     <p className="text-xs text-cyan-100">SMS / WhatsApp</p>
-                    <p className="font-semibold">+971 55 343 6433</p>
+                    <p className="font-semibold">+91 96506 68744</p>
                   </div>
                 </div>
 
@@ -357,7 +357,7 @@ export default function ContactUsPage() {
                   <Mail size={20} />
                   <div>
                     <p className="text-xs text-cyan-100">Email</p>
-                    <p className="font-semibold text-sm">distributor@zalomi.com</p>
+                    <p className="font-semibold text-sm">info@prowell.asia</p>
                   </div>
                 </div>
               </div>
@@ -375,7 +375,7 @@ export default function ContactUsPage() {
                   <Phone size={20} />
                   <div>
                     <p className="text-xs text-green-100">Hotline</p>
-                    <p className="font-semibold">+971 58 498 3456</p>
+                    <p className="font-semibold">+91 96506 68744</p>
                   </div>
                 </div>
 
@@ -383,7 +383,7 @@ export default function ContactUsPage() {
                   <MessageSquare size={20} />
                   <div>
                     <p className="text-xs text-green-100">SMS / WhatsApp</p>
-                    <p className="font-semibold">+971 55 343 6433</p>
+                    <p className="font-semibold">+91 96506 68744</p>
                   </div>
                 </div>
 
@@ -391,7 +391,7 @@ export default function ContactUsPage() {
                   <Mail size={20} />
                   <div>
                     <p className="text-xs text-green-100">Email</p>
-                    <p className="font-semibold text-sm">support@zalomi.com</p>
+                    <p className="font-semibold text-sm">info@prowell.asia</p>
                   </div>
                 </div>
               </div>
@@ -428,7 +428,7 @@ export default function ContactUsPage() {
 
               <div className="relative">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.2842857142857!2d55.2708!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzE3LjMiTiA1NcKwMTYnMTQuOSJF!5e0!3m2!1sen!2sae!4v1234567890123!5m2!1sen!2sae"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.951187631577!2d77.2899573!3d28.420729700000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cdddef85a6389%3A0x1c3b10b2c7026cec!2sShubh%20Apartments%20Sector%2021D!5e0!3m2!1sen!2sin!4v1766511381112!5m2!1sen!2sin"
                   width="100%"
                   height="350"
                   style={{ border: 0 }}
@@ -439,27 +439,27 @@ export default function ContactUsPage() {
                 />
               </div>
 
-              <div className="p-6 bg-cyan-50">
+              <div className="p-6 bg-cyan-50 h-full">
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
                     <MapPin className="text-cyan-600 mt-1 flex-shrink-0" size={20} />
                     <div>
                       <p className="font-semibold text-gray-800">Address</p>
-                      <p className="text-sm text-gray-600">Dubai, United Arab Emirates</p>
+                      <p className="text-sm text-gray-600">Flat No. 405, GH -3, Sector 21D, Faridabad, Haryana -121001</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="text-cyan-600 mt-1 flex-shrink-0" size={20} />
                     <div>
                       <p className="font-semibold text-gray-800">Contact</p>
-                      <p className="text-sm text-gray-600">+971 58 498 3456</p>
+                      <p className="text-sm text-gray-600">+91 96506 68744</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Mail className="text-cyan-600 mt-1 flex-shrink-0" size={20} />
                     <div>
                       <p className="font-semibold text-gray-800">Email</p>
-                      <p className="text-sm text-gray-600">distributor@zalomi.com</p>
+                      <p className="text-sm text-gray-600">info@prowell.asia</p>
                     </div>
                   </div>
                 </div>
@@ -480,7 +480,7 @@ export default function ContactUsPage() {
 
               <div className="relative">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1234567890!2d55.3045!3d25.2765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDE2JzM1LjQiTiA1NcKwMTgnMTYuMiJF!5e0!3m2!1sen!2sae!4v1234567890123!5m2!1sen!2sae"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.610168309166!2d80.1127486!3d13.060467799999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52610025fc1a57%3A0xbee61ebf46308e13!2sProwell%20life%20sciences%20pvt%20ltd!5e0!3m2!1sen!2sin!4v1766511515538!5m2!1sen!2sin"
                   width="100%"
                   height="350"
                   style={{ border: 0 }}
@@ -497,21 +497,21 @@ export default function ContactUsPage() {
                     <MapPin className="text-green-600 mt-1 flex-shrink-0" size={20} />
                     <div>
                       <p className="font-semibold text-gray-800">Address</p>
-                      <p className="text-sm text-gray-600">Abu Dhabi, United Arab Emirates</p>
+                      <p className="text-sm text-gray-600">2/153 and 47 SF No. 17/3B, Avadi Main Road, Senneerkuppam, Chennai, Tiruvallur, Tamil Nadu - 600056</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="text-green-600 mt-1 flex-shrink-0" size={20} />
                     <div>
                       <p className="font-semibold text-gray-800">Contact</p>
-                      <p className="text-sm text-gray-600">+971 58 498 3456</p>
+                      <p className="text-sm text-gray-600">+91 96506 68744</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Mail className="text-green-600 mt-1 flex-shrink-0" size={20} />
                     <div>
                       <p className="font-semibold text-gray-800">Email</p>
-                      <p className="text-sm text-gray-600">support@zalomi.com</p>
+                      <p className="text-sm text-gray-600">info@prowell.asia</p>
                     </div>
                   </div>
                 </div>

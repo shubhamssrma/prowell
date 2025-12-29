@@ -6,8 +6,7 @@ import React from 'react'
 export default function Page() {
     return (
         <>
-            
-            <MeetOurTeam showCta={true} />
+            <MeetOurTeam showCta={true} enableSlider={false}/>
         </>
     )
 }
