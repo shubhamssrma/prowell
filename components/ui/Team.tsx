@@ -30,46 +30,49 @@ const OurTeamSection: React.FC<PageProps> = ({ showCta, enableSlider = true }) =
         },
         {
             id: 2,
-            name: "Ranjeet Chauhan",
-            role: "Sales Manager (North)",
-            image: '/images/team/Ranjeet.png',
-            gradient: 'from-gray-900/60 to-gray-900/0'
-        },
-        {
-            id: 3,
             name: "Dr. Ramakrishnan Pandian",
             role: "Director - Techno Commercial",
             image: '/images/team/Pandian.png',
             gradient: 'from-gray-900/60 to-gray-900/0'
         },
         {
-            id: 4,
-            name: "Sekhar Chakraborty",
-            role: "Regional Sales Manager (East)",
-            image: '/images/team/Sekhar.png',
+            id: 3,
+            name: "Ranjeet Chauhan",
+            role: "Sales Manager (North)",
+            image: '/images/team/Ranjeet.png',
             gradient: 'from-gray-900/60 to-gray-900/0'
         },
         {
-            id: 5,
+            id: 4,
             name: "M. Venkatesan",
             role: "Branch Head",
             image: '/images/team/Venkatesan.png',
             gradient: 'from-gray-900/60 to-gray-900/0'
         },
         {
-            id: 6,
+            id: 5,
             name: "Govind Vishwakarma",
             role: "Account Manager",
             image: '/images/team/Govind.png',
             gradient: 'from-gray-900/60 to-gray-900/0'
         },
         {
-            id: 7,
+            id: 6,
             name: "Bhuvankumar Reddy",
             role: "Area Sales Manager (Telangana)",
             image: '/images/team/Bhuvan.png',
             gradient: 'from-gray-900/60 to-gray-900/0'
-        }
+        },
+        {
+            id: 7,
+            name: "Sekhar Chakraborty",
+            role: "Regional Sales Manager (East)",
+            image: '/images/team/Sekhar.png',
+            gradient: 'from-gray-900/60 to-gray-900/0'
+        },
+
+
+
     ];
 
     useEffect(() => {

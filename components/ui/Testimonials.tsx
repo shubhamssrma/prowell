@@ -5,7 +5,7 @@ import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 interface Testimonial {
     id: number;
     name: string;
-    role: string;
+    role?: string;
     company: string;
     image: string;
     rating: number;
@@ -24,64 +24,64 @@ interface TestimonialsProps {
 const testimonials: Testimonial[] = [
     {
         id: 1,
-        name: 'Rajesh Sharma',
-        role: 'CEO',
-        company: 'Phoenix Realty',
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
+        name: 'Sonu',
+        // role: 'CEO',
+        company: 'K K Feeds Poultry',
+        image: '/images/testimonial/testimonial.png',
         rating: 5,
-        text: 'This platform has completely transformed how we manage our leads. The follow-up system is intuitive and has helped us close 40% more deals. Highly recommended!',
+        text: 'Excellent service and good products!',
         featured: true
     },
     {
         id: 2,
-        name: 'Priya Desai',
-        role: 'Sales Manager',
-        company: 'Urban Properties',
-        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
+        name: 'Amit Dhull',
+        // role: 'Sales Manager',
+        company: 'Royal Feeds',
+        image: '/images/testimonial/testimonial.png',
         rating: 5,
-        text: 'The lead tracking and management features are exceptional. Our team productivity has increased significantly, and we never miss a follow-up anymore.',
+        text: 'Good Results',
         featured: true
     },
-    {
-        id: 3,
-        name: 'Amit Patel',
-        role: 'Real Estate Broker',
-        company: 'Skyline Estates',
-        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop',
-        rating: 5,
-        text: 'Outstanding service! The automation features save us hours every week. The customer support is also top-notch and very responsive.',
-        featured: false
-    },
-    {
-        id: 4,
-        name: 'Sneha Reddy',
-        role: 'Property Consultant',
-        company: 'Green Valley Realty',
-        image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop',
-        rating: 5,
-        text: 'This is exactly what we needed for our growing business. The interface is user-friendly and the reporting features give us valuable insights.',
-        featured: false
-    },
-    {
-        id: 5,
-        name: 'Vikram Singh',
-        role: 'Director',
-        company: 'Metro Homes',
-        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop',
-        rating: 5,
-        text: 'We\'ve tried multiple CRM systems, but this one stands out. The property management integration is seamless and the team loves using it.',
-        featured: false
-    },
-    {
-        id: 6,
-        name: 'Ananya Kapoor',
-        role: 'Senior Agent',
-        company: 'Prime Properties',
-        image: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=200&h=200&fit=crop',
-        rating: 5,
-        text: 'Game changer for our agency! The lead scoring system helps us prioritize effectively, and we\'ve seen a 50% increase in conversions.',
-        featured: true
-    }
+    // {
+    //     id: 3,
+    //     name: 'Amit Patel',
+    //     role: 'Real Estate Broker',
+    //     company: 'Skyline Estates',
+    //     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop',
+    //     rating: 5,
+    //     text: 'Outstanding service! The automation features save us hours every week. The customer support is also top-notch and very responsive.',
+    //     featured: false
+    // },
+    // {
+    //     id: 4,
+    //     name: 'Sneha Reddy',
+    //     role: 'Property Consultant',
+    //     company: 'Green Valley Realty',
+    //     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop',
+    //     rating: 5,
+    //     text: 'This is exactly what we needed for our growing business. The interface is user-friendly and the reporting features give us valuable insights.',
+    //     featured: false
+    // },
+    // {
+    //     id: 5,
+    //     name: 'Vikram Singh',
+    //     role: 'Director',
+    //     company: 'Metro Homes',
+    //     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop',
+    //     rating: 5,
+    //     text: 'We\'ve tried multiple CRM systems, but this one stands out. The property management integration is seamless and the team loves using it.',
+    //     featured: false
+    // },
+    // {
+    //     id: 6,
+    //     name: 'Ananya Kapoor',
+    //     role: 'Senior Agent',
+    //     company: 'Prime Properties',
+    //     image: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=200&h=200&fit=crop',
+    //     rating: 5,
+    //     text: 'Game changer for our agency! The lead scoring system helps us prioritize effectively, and we\'ve seen a 50% increase in conversions.',
+    //     featured: true
+    // }
 ];
 
 const Testimonials: React.FC<TestimonialsProps> = ({
@@ -133,7 +133,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-12">
                         <h2 className="text-5xl font-bold text-gray-900 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-cyan-600 to-teal-600">What Our Clients Say</h2>
-                        <p className="text-lg text-gray-600">Trusted by real estate professionals worldwide</p>
+                        {/* <p className="text-lg text-gray-600">Trusted by real estate professionals worldwide</p> */}
                     </div>
 
                     <div className="relative">
@@ -152,7 +152,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                                 />
                                 <div>
                                     <h4 className="font-bold text-gray-900 text-lg">{currentTestimonial.name}</h4>
-                                    <p className="text-gray-600">{currentTestimonial.role} at {currentTestimonial.company}</p>
+                                    <p className="text-gray-600">{currentTestimonial.company}</p>
                                     <div className="mt-2">{renderStars(currentTestimonial.rating)}</div>
                                 </div>
                             </div>

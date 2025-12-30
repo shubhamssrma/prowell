@@ -55,7 +55,7 @@ export default function page() {
                 {/* Main circular image */}
                 <div className="relative aspect-square rounded-full overflow-hidden bg-white shadow-xl">
                   <Image
-                    src="/images/about/1.jpg"
+                    src="/images/about/first.jpg"
                     alt="Team members"
                     fill
                     className="object-cover"
@@ -66,7 +66,7 @@ export default function page() {
                 {/* Floating chicken image */}
                 <div className="absolute bottom-0 right-0 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden bg-white shadow-lg transform translate-x-4 translate-y-4">
                   <Image
-                    src="/images/about/4.jpg"
+                    src="/images/about/third.jpg"
                     alt="Poultry"
                     fill
                     className="object-cover"
@@ -79,7 +79,7 @@ export default function page() {
             <div className="space-y-6">
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
                 <span className="text-cyan-400">Who we </span>
-                <span className="text-green-400">are?</span>
+                <span className="text-green-400">are</span>
               </h2>
 
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
@@ -123,7 +123,7 @@ export default function page() {
             <div className="space-y-6">
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
                 <span className="text-cyan-400">Our </span>
-                <span className="text-green-400">Vision?</span>
+                <span className="text-green-400">Vision</span>
               </h2>
 {/* 
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
@@ -153,7 +153,7 @@ export default function page() {
                 {/* Main circular image */}
                 <div className="relative aspect-square rounded-full overflow-hidden bg-white shadow-xl">
                   <Image
-                    src="/images/about/3.jpg"
+                    src="/images/about/fourth.jpg"
                     alt="Team members"
                     fill
                     className="object-cover"
@@ -164,7 +164,7 @@ export default function page() {
                 {/* Floating chicken image */}
                 <div className="absolute bottom-[-20] left-[-20] w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden bg-white shadow-lg">
                   <Image
-                    src="/images/about/5.jpg"
+                    src="/images/about/second.jpg"
                     alt="Poultry"
                     fill
                     className="object-cover"
@@ -186,7 +186,7 @@ export default function page() {
                 {/* Main circular image */}
                 <div className="relative aspect-square rounded-full overflow-hidden bg-white shadow-xl">
                   <Image
-                    src="/images/about/1.jpg"
+                    src="/images/about/seventh.jpg"
                     alt="Team members"
                     fill
                     className="object-cover"
@@ -197,7 +197,7 @@ export default function page() {
                 {/* Floating chicken image */}
                 <div className="absolute bottom-0 right-0 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden bg-white shadow-lg transform translate-x-4 translate-y-4">
                   <Image
-                    src="/images/about/4.jpg"
+                    src="/images/about/sixth.jpg"
                     alt="Poultry"
                     fill
                     className="object-cover"

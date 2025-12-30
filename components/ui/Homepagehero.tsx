@@ -284,7 +284,7 @@ const BeautyHeroSlider: React.FC = () => {
                                 </p>
 
                                 {/* Title */}
-                                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-800 via-cyan-700 to-teal-700 mb-6 leading-tight">
+                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-800 via-cyan-700 to-teal-700 mb-6 leading-tight">
                                     {slide.title.split(' ').map((word, i) => (
                                         <React.Fragment key={i}>
                                             {word}
@@ -295,7 +295,7 @@ const BeautyHeroSlider: React.FC = () => {
                                 </h1>
 
                                 {/* Description */}
-                                <p className="text-base md:text-lg text-gray-600 mb-8 max-w-xl leading-relaxed">
+                                <p className="text-base md:text-lg text-white-600 mb-8 max-w-lg leading-relaxed">
                                     {slide.description}
                                 </p>
 

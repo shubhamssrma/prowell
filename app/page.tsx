@@ -36,7 +36,7 @@ export default function Home() {
                 {/* Main circular image */}
                 <div className="relative aspect-square rounded-full overflow-hidden bg-white shadow-xl">
                   <Image
-                    src="/images/about/1.jpg"
+                    src="/images/about/first.jpg"
                     alt="Team members"
                     fill
                     className="object-cover"
@@ -47,7 +47,7 @@ export default function Home() {
                 {/* Floating chicken image */}
                 <div className="absolute bottom-0 right-0 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden bg-white shadow-lg transform translate-x-4 translate-y-4">
                   <Image
-                    src="/images/about/4.jpg"
+                    src="/images/about/third.jpg"
                     alt="Poultry"
                     fill
                     className="object-cover"
@@ -59,7 +59,7 @@ export default function Home() {
             {/* Right side - Content */}
             <div className="space-y-6">
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-cyan-600 to-teal-600">
-                <span className="">Who we are?</span>
+                <span className="">Who we are</span>
                 {/* <span className="text-green-400">are?</span> */}
               </h2>
 
