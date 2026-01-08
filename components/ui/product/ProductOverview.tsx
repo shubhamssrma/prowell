@@ -1,6 +1,9 @@
+import { useAppSelector } from "@/store/hooks";
 import { Leaf } from "lucide-react";
 
 export function ProductOverview() {
+  const { productDetails } = useAppSelector(state => state.productReducer)
+
   return (
     <section className="bg-green-50/50 py-20">
       <div className="max-w-5xl mx-auto px-6 text-center">
@@ -14,10 +17,7 @@ export function ProductOverview() {
         </h2>
 
         <p className="mt-6 text-gray-700 leading-relaxed">
-          PROBIOS SL is a scientifically developed probiotic formulation
-          containing <strong>Bacillus subtilis</strong> and
-          <strong> Bacillus licheniformis</strong> to support gut health,
-          nutrient absorption, and immune response in animals.
+          {productDetails?.productOverview}
         </p>
 
       </div>

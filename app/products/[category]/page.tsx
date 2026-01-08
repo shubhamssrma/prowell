@@ -1,139 +1,153 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Search, SlidersHorizontal, Grid3x3, List, ArrowRight, Tag } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { getProductsBySpecies } from '@/store/slices/productSlice';
+import { Product } from '@/types/product.types';
 
-interface Product {
-  id: number;
-  name: string;
-  category: string;
-  description: string;
-  image: string;
-  tags: string[];
-  featured?: boolean;
-  slug?: string;
-}
+// interface Product {
+//   id: number;
+//   name: string;
+//   category: string;
+//   description: string;
+//   image: string;
+//   tags: string[];
+//   featured?: boolean;
+//   slug?: string;
+// }
 
 const ProductsShowcasePage: React.FC = () => {
   const router = useRouter()
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const dispatch = useAppDispatch()
+  const { products, loading, error } = useAppSelector(state => state.productReducer)
 
-  const products: Product[] = [
-    {
-      id: 1,
-      name: 'Advanced Analytics Dashboard',
-      category: 'Species',
-      description: 'Comprehensive data visualization and analytics platform for business intelligence.',
-      image: '/images/products/Bile_Acid.jpg',
-      // image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-      tags: ['Analytics', 'Dashboard', 'Business'],
-      slug: 'test',
-      featured: true
-    },
-    {
-      id: 2,
-      name: 'Cloud Storage Solution',
-      category: 'Segment',
-      description: 'Secure and scalable cloud storage platform with advanced file management.',
-      image: '/images/products/Antibiotic_Growth_Promoter.jpg',
-      // image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['Cloud', 'Storage', 'Security']
-    },
-    {
-      id: 3,
-      name: 'Project Management Suite',
-      category: 'Application',
-      description: 'Complete project management and team collaboration platform.',
-      image: '/images/products/Chemical_Anticoccidial.jpg',
-      // image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['Management', 'Collaboration', 'Productivity'],
-      featured: true
-    },
-    {
-      id: 4,
-      name: 'AI Chatbot Platform',
-      category: 'Region',
-      description: 'Intelligent conversational AI for customer service and support automation.',
-      image: '/images/products/Combination_Anticoccidial.jpg',
-      // image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['AI', 'Chatbot', 'Automation']
-    },
-    {
-      id: 5,
-      name: 'Marketing Automation Tool',
-      category: 'Region',
-      description: 'All-in-one marketing automation platform for email, social media, and campaigns.',
-      image: '/images/products/Ionophore_Coccidiostat.jpg',
-      // image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['Marketing', 'Automation', 'Email']
-    },
-    {
-      id: 6,
-      name: 'Mobile App Development Kit',
-      category: 'Application',
-      description: 'Complete SDK for building cross-platform mobile applications.',
-      image: '/images/products/Natural_Growth_Promoter.jpg',
-      // image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['Mobile', 'Development', 'SDK'],
-      featured: true
-    },
-    {
-      id: 7,
-      name: 'CRM System',
-      category: 'Application',
-      description: 'Customer relationship management platform for sales and service teams.',
-      image: '/images/products/Probiotic.jpg',
-      // image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['CRM', 'Sales', 'Customer Service']
-    },
-    {
-      id: 8,
-      name: 'E-Learning Platform',
-      category: 'Species',
-      description: 'Interactive online learning management system with course creation tools.',
-      image: '/images/products/Probiotic.jpg',
-      // image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['Education', 'Learning', 'Online']
-    },
-    {
-      id: 9,
-      name: 'Cybersecurity Suite',
-      category: 'Region',
-      description: 'Enterprise-grade security platform with threat detection and prevention.',
-      image: '/images/products/Ionophore_Coccidiostat.jpg',
-      // image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop',
-      slug: 'test',
-      tags: ['Security', 'Cybersecurity', 'Protection']
-    }
-  ];
+  // const products: Product[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Advanced Analytics Dashboard',
+  //     category: 'Species',
+  //     description: 'Comprehensive data visualization and analytics platform for business intelligence.',
+  //     image: '/images/products/Bile_Acid.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
+  //     tags: ['Analytics', 'Dashboard', 'Business'],
+  //     slug: 'test',
+  //     featured: true
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Cloud Storage Solution',
+  //     category: 'Segment',
+  //     description: 'Secure and scalable cloud storage platform with advanced file management.',
+  //     image: '/images/products/Antibiotic_Growth_Promoter.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['Cloud', 'Storage', 'Security']
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Project Management Suite',
+  //     category: 'Application',
+  //     description: 'Complete project management and team collaboration platform.',
+  //     image: '/images/products/Chemical_Anticoccidial.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['Management', 'Collaboration', 'Productivity'],
+  //     featured: true
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'AI Chatbot Platform',
+  //     category: 'Region',
+  //     description: 'Intelligent conversational AI for customer service and support automation.',
+  //     image: '/images/products/Combination_Anticoccidial.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['AI', 'Chatbot', 'Automation']
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Marketing Automation Tool',
+  //     category: 'Region',
+  //     description: 'All-in-one marketing automation platform for email, social media, and campaigns.',
+  //     image: '/images/products/Ionophore_Coccidiostat.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['Marketing', 'Automation', 'Email']
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Mobile App Development Kit',
+  //     category: 'Application',
+  //     description: 'Complete SDK for building cross-platform mobile applications.',
+  //     image: '/images/products/Natural_Growth_Promoter.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['Mobile', 'Development', 'SDK'],
+  //     featured: true
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'CRM System',
+  //     category: 'Application',
+  //     description: 'Customer relationship management platform for sales and service teams.',
+  //     image: '/images/products/Probiotic.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['CRM', 'Sales', 'Customer Service']
+  //   },
+  //   {
+  //     id: 8,
+  //     name: 'E-Learning Platform',
+  //     category: 'Species',
+  //     description: 'Interactive online learning management system with course creation tools.',
+  //     image: '/images/products/Probiotic.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['Education', 'Learning', 'Online']
+  //   },
+  //   {
+  //     id: 9,
+  //     name: 'Cybersecurity Suite',
+  //     category: 'Region',
+  //     description: 'Enterprise-grade security platform with threat detection and prevention.',
+  //     image: '/images/products/Ionophore_Coccidiostat.jpg',
+  //     // image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop',
+  //     slug: 'test',
+  //     tags: ['Security', 'Cybersecurity', 'Protection']
+  //   }
+  // ];
 
-  const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
+  // const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
 
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  // const filteredProducts = products.filter(product => {
+  //   const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+  //   const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     product.description.toLowerCase().includes(searchQuery.toLowerCase());
+  //   return matchesCategory && matchesSearch;
+  // });
 
   const handleProductClick = (product: Product | undefined) => {
     // Navigate to product detail page
     // console.log(`Navigate to product: ${productId}`);
     if (product) {
-      router.push(`/products/${product.category}/${product.slug}`)
+      router.push(`/product/${product.slug}`)
     }
     // In real Next.js app: router.push(`/products/${productId}`)
   };
+
+  useEffect(() => {
+    dispatch(getProductsBySpecies())
+  }, [])
+
+
+  if (loading) {
+    return "loading..."
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -168,7 +182,7 @@ const ProductsShowcasePage: React.FC = () => {
             {/* View Toggle */}
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600 hidden sm:block">
-                {filteredProducts.length} products
+                {products.length} products
               </span>
               <div className="flex items-center gap-2 border-2 border-cyan-200 rounded-lg p-1">
                 <button
@@ -191,7 +205,7 @@ const ProductsShowcasePage: React.FC = () => {
 
           {/* Category Filters */}
           <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-cyan-100">
-            {categories.map((category) => (
+            {/* {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -202,7 +216,7 @@ const ProductsShowcasePage: React.FC = () => {
               >
                 {category}
               </button>
-            ))}
+            ))} */}
           </div>
         </div>
 
@@ -212,9 +226,9 @@ const ProductsShowcasePage: React.FC = () => {
             ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
             : 'space-y-6'
         }>
-          {filteredProducts.map((product) => (
+          {products.map((product) => (
             <div
-              key={product.id}
+              key={product._id}
               onClick={() => handleProductClick(product)}
               className={`bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden ${viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''
                 }`}
@@ -223,11 +237,11 @@ const ProductsShowcasePage: React.FC = () => {
               <div className={`relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 ${viewMode === 'list' ? 'sm:w-80 h-64 sm:h-auto flex-shrink-0' : 'aspect-video'
                 }`}>
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.featuredImage.url}
+                  alt={product.featuredImage.alt}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                {product.featured && (
+                {product.isFeatured && (
                   <span className="absolute top-4 right-4 px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-green-400 to-green-500 rounded-full shadow-lg">
                     Featured
                   </span>
@@ -245,9 +259,15 @@ const ProductsShowcasePage: React.FC = () => {
               {/* Product Info */}
               <div className="p-6 flex-1">
                 <div className="flex items-start justify-between mb-3">
-                  <span className="inline-block px-3 py-1 text-xs font-semibold text-cyan-700 bg-cyan-50 rounded-full border border-cyan-200">
-                    {product.category}
-                  </span>
+                  {
+                    product.categories.map(cat => {
+                      return (
+                        <span key={cat._id} className="inline-block px-3 py-1 text-xs font-semibold text-cyan-700 bg-cyan-50 rounded-full border border-cyan-200">
+                          {cat.name}
+                        </span>
+                      )
+                    })
+                  }
                 </div>
 
                 <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-cyan-600 transition-colors">
@@ -255,11 +275,11 @@ const ProductsShowcasePage: React.FC = () => {
                 </h3>
 
                 <p className="text-gray-600 mb-4 line-clamp-2">
-                  {product.description}
+                  {product.applicationUsage}
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                {/* <div className="flex flex-wrap gap-2 mb-4">
                   {product.tags.map((tag, index) => (
                     <span
                       key={index}
@@ -269,7 +289,7 @@ const ProductsShowcasePage: React.FC = () => {
                       {tag}
                     </span>
                   ))}
-                </div>
+                </div> */}
 
                 {/* Learn More Button */}
                 <button
@@ -288,7 +308,7 @@ const ProductsShowcasePage: React.FC = () => {
         </div>
 
         {/* Empty State */}
-        {filteredProducts.length === 0 && (
+        {products.length === 0 && (
           <div className="text-center py-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-50 rounded-full mb-4">
               <Search className="w-8 h-8 text-cyan-500" />
@@ -303,7 +323,7 @@ const ProductsShowcasePage: React.FC = () => {
         )}
 
         {/* Pagination */}
-        {filteredProducts.length > 0 && (
+        {/* {products.length > 0 && (
           <div className="mt-12 flex justify-center">
             <div className="flex items-center gap-2">
               <button className="px-4 py-2 border-2 border-cyan-200 rounded-lg hover:bg-cyan-50 hover:border-cyan-300 transition-all">
@@ -325,7 +345,7 @@ const ProductsShowcasePage: React.FC = () => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

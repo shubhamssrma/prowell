@@ -147,6 +147,7 @@ const Navbar = () => {
     const pathname = usePathname();
 
     if (pathname.startsWith("/admin")) return null;
+    if (pathname.startsWith("/login")) return null;
 
     // Hide the button that points to the current page (e.g. hide Login on /login, hide Sign up on /register)
     // const hideLogin = pathname === "/login";

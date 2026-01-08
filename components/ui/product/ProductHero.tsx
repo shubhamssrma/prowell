@@ -1,30 +1,31 @@
 'use client';
 
+import { useAppSelector } from '@/store/hooks';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
 interface ProductImage {
-    id: number;
-    src: string;
+    url: string;
     alt: string;
 }
 
-const productImages: ProductImage[] = [
-    {
-        id: 1,
-        src: "/images/products/Protide_10.jpg",
-        alt: 'Doxyneo Soluble - Front View'
-    },
-    {
-        id: 2,
-        src: "/images/products/Promycin_M.jpg",
-        alt: 'Doxyneo Soluble - Side View'
-    }
-];
+// const productImages: ProductImage[] = [
+//     {
+//         id: 1,
+//         src: "/images/products/Protide_10.jpg",
+//         alt: 'Doxyneo Soluble - Front View'
+//     },
+//     {
+//         id: 2,
+//         src: "/images/products/Promycin_M.jpg",
+//         alt: 'Doxyneo Soluble - Side View'
+//     }
+// ];
 
 
 export function ProductHero() {
-    const [selectedImage, setSelectedImage] = useState<ProductImage>(productImages[0]);
+    const [selectedImage, setSelectedImage] = useState<ProductImage>();
+    const { productDetails } = useAppSelector(state => state.productReducer)
 
     // return (
     //     <section className="bg-gradient-to-br from-green-50 to-white border-b">
@@ -72,6 +73,18 @@ export function ProductHero() {
     //         </div>
     //     </section>
     // );
+
+
+    const handleDownload = (file?: { url: string; name?: string }) => {
+        if (!file?.url) {
+            alert('File not available');
+            return;
+        }
+
+        // Open in new tab (best for PDFs, images, docs)
+        window.open(file.url, '_blank');
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-full mx-auto">
@@ -82,25 +95,25 @@ export function ProductHero() {
                             {/* Main Image */}
                             <div className="w-full bg-white rounded-lg p-8 mb-6 flex items-center justify-center">
                                 <img
-                                    src={selectedImage.src}
-                                    alt={selectedImage.alt}
+                                    src={productDetails?.featuredImage.url}
+                                    alt={productDetails?.featuredImage.alt}
                                     className="max-w-full h-auto max-h-96 object-contain"
                                 />
                             </div>
 
                             {/* Thumbnail Images */}
                             <div className="flex gap-4">
-                                {productImages.map((image) => (
+                                {productDetails?.images.map((image, i) => (
                                     <button
-                                        key={image.id}
+                                        key={i}
                                         onClick={() => setSelectedImage(image)}
-                                        className={`w-24 h-24 rounded-lg border-2 overflow-hidden transition-all ${selectedImage.id === image.id
+                                        className={`w-24 h-24 rounded-lg border-2 overflow-hidden transition-all ${selectedImage?.url === image.url
                                             ? 'border-blue-600 ring-2 ring-blue-200'
                                             : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                     >
                                         <img
-                                            src={image.src}
+                                            src={image.url}
                                             alt={image.alt}
                                             className="w-full h-full object-cover"
                                         />
@@ -113,18 +126,18 @@ export function ProductHero() {
                         <div className="flex flex-col justify-center">
                             {/* Product Title */}
                             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                                PROBIOS SL
+                                {productDetails?.name}
                             </h1>
 
                             {/* Product Composition */}
                             <p className="text-lg text-green-600 font-medium mb-8">
-                                100 mg/g Doxycycline hydrochloride & 100 mg/g Neomycin sulphate
+                                {productDetails?.productSmallDescription}
                             </p>
 
                             {/* Product Description */}
                             <div className="prose prose-lg">
                                 <p className="text-gray-700 leading-relaxed">
-                                    PROBIOS SL is a broad-spectrum antibiotic soluble powder that exhibits a potent synergistic effect in the treatment and prevention of complicated mixed bacterial infections in poultry and livestock caused by or associated with Doxycycline and Neomycin susceptible organisms.
+                                    {productDetails?.productDescription}
                                 </p>
                             </div>
 
@@ -135,13 +148,13 @@ export function ProductHero() {
                                         <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
                                             Form
                                         </h3>
-                                        <p className="text-gray-900 font-medium">Soluble Powder</p>
+                                        <p className="text-gray-900 font-medium">{productDetails?.form}</p>
                                     </div>
                                     <div>
                                         <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
                                             Package
                                         </h3>
-                                        <p className="text-gray-900 font-medium">10 x 100 g</p>
+                                        <p className="text-gray-900 font-medium">{productDetails?.quickFacts.packaging}</p>
                                     </div>
                                     {/* <div>
                                         <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
@@ -159,14 +172,34 @@ export function ProductHero() {
                             </div>
 
                             {/* Action Buttons - Optional */}
-                            <div className="mt-8 flex gap-4">
+                            {/* <div className="mt-8 flex gap-4">
                                 <Link href="/contact" className="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-cyan-500 transition-colors text-center">
                                     Download Spec Sheet
                                 </Link>
                                 <Link href="/contact" className="flex-1 bg-white text-gray-900 py-3 px-6 rounded-lg font-semibold border-2 border-gray-300 hover:border-gray-400 transition-colors text-center">
                                     Request Sample
                                 </Link>
+                            </div> */}
+                            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                                {/* Download Spec Sheet */}
+                                <button
+                                    onClick={() => handleDownload(productDetails?.specSheet)}
+                                    disabled={!productDetails?.specSheet?.url}
+                                    className={`flex-1 py-3 px-6 rounded-lg font-semibold transition text-center
+                                        ${productDetails?.specSheet?.url
+                                            ? 'bg-green-600 text-white hover:bg-green-700'
+                                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                        }`}
+                                >
+                                    Download Spec Sheet
+                                </button>
+
+                                {/* Request / Download Sample */}
+                                <Link href="/contact" className="flex-1 bg-white text-gray-900 py-3 px-6 rounded-lg font-semibold border-2 border-gray-300 hover:border-gray-400 transition-colors text-center">
+                                    Request Sample
+                                </Link>
                             </div>
+
                         </div>
                     </div>
                 </div>

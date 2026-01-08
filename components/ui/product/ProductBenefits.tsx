@@ -1,6 +1,9 @@
+import { useAppSelector } from "@/store/hooks";
 import { ShieldCheck } from "lucide-react";
 
 export function ProductBenefits() {
+  const { productDetails } = useAppSelector(state => state.productReducer)
+
   return (
     <section className="bg-gray-50 py-20">
       <div className="max-w-7xl mx-auto px-6">
@@ -13,14 +16,7 @@ export function ProductBenefits() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            "Restores intestinal microflora balance",
-            "Reduces diarrhea & indigestion",
-            "Suppresses harmful pathogens",
-            "Enhances immunity & antioxidant activity",
-            "Produces SCFAs to improve gut pH",
-            "Thermo-stable & pellet compatible",
-          ].map((benefit, i) => (
+          {productDetails?.keyBenefits.map((benefit, i) => (
             <div
               key={i}
               className="bg-white border rounded-xl p-6 flex gap-4"

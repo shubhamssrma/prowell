@@ -1,4 +1,8 @@
+import { useAppSelector } from "@/store/hooks";
+
 export function DosageSection() {
+  const { productDetails } = useAppSelector(state => state.productReducer)
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-6">
@@ -16,17 +20,14 @@ export function DosageSection() {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {[
-                ["Poultry", "100 – 200"],
-                ["Ruminants", "200 – 300"],
-                ["Swine", "200 – 300"],
-                ["Shrimp / Fish", "60 – 100"],
-              ].map(([s, d], i) => (
-                <tr key={i}>
-                  <td className="px-6 py-4">{s}</td>
-                  <td className="px-6 py-4">{d}</td>
-                </tr>
-              ))}
+              {productDetails?.dosage.map((obj, i) => {
+                return (
+                  <tr key={i}>
+                    <td className="px-6 py-4">{obj.species.name}</td>
+                    <td className="px-6 py-4">{obj.dosage}</td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
@@ -34,7 +35,6 @@ export function DosageSection() {
         <p className="mt-6 text-sm text-gray-600 text-center">
           Compatible with anticoccidials and standard coccidiosis control programs.
         </p>
-
       </div>
     </section>
   );

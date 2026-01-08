@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { usePathname } from "next/navigation";
 
 const Footer: React.FC = () => {
-        const pathname = usePathname();
-    
-        if (pathname.startsWith("/admin")) return null;
+    const pathname = usePathname();
+
+    if (pathname.startsWith("/admin")) return null;
+    if (pathname.startsWith("/login")) return null;
     const footerLinks = {
         about: [
             { label: 'Our Edge', href: '/about/our-edge' },

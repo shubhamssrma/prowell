@@ -1,5 +1,7 @@
+import { useAppSelector } from "@/store/hooks";
 import { Activity, TreePalm } from "lucide-react";
 export function ProductHighlights() {
+    const { productDetails } = useAppSelector(state => state.productReducer)
     return (
         // <section className="bg-white">
         //     <div className="max-w-7xl mx-auto px-6 py-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
@@ -37,22 +39,44 @@ export function ProductHighlights() {
                 </div>
 
                 <div className="grid md:grid-cols-4 gap-8">
+                    <div className="border rounded-2xl p-8 bg-green-50">
+                        <h3 className="font-semibold text-green-800">
+                            Total CFU
+                        </h3>
+                        <p className="mt-4 text-sm text-gray-600">
+                            {productDetails?.quickFacts.concentration}
+                        </p>
+                    </div>
 
-                    {[
-                        { label: "Total CFU", value: "4 × 10¹⁰ CFU / g" },
-                        { label: "Shelf Life", value: "24 Months" },
-                        { label: "Form", value: "Powder" },
-                        { label: "Packaging", value: "25 kg Bag" },
-                    ].map((item, i) => (
-                        <div key={i} className="border rounded-2xl p-8 bg-green-50">
-                            <h3 className="font-semibold text-green-800">
-                                {item.label}
-                            </h3>
-                            <p className="mt-4 text-sm text-gray-600">
-                                {item.value}
-                            </p>
-                        </div>
-                    ))}
+
+                    <div className="border rounded-2xl p-8 bg-green-50">
+                        <h3 className="font-semibold text-green-800">
+                            Shelf Life
+                        </h3>
+                        <p className="mt-4 text-sm text-gray-600">
+                            {productDetails?.quickFacts.shelfLife}
+                        </p>
+                    </div>
+
+
+                    <div className="border rounded-2xl p-8 bg-green-50">
+                        <h3 className="font-semibold text-green-800">
+                            Form
+                        </h3>
+                        <p className="mt-4 text-sm text-gray-600">
+                            {productDetails?.form}
+                        </p>
+                    </div>
+
+
+                    <div className="border rounded-2xl p-8 bg-green-50">
+                        <h3 className="font-semibold text-green-800">
+                            Packaging
+                        </h3>
+                        <p className="mt-4 text-sm text-gray-600">
+                            {productDetails?.quickFacts.packaging}
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>

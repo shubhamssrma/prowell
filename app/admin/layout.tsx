@@ -4,8 +4,19 @@ import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminHeader from "@/components/admin/AdminHeader";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppSelector } from "@/store/hooks";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+    const { loggedInUser } = useAppSelector(state => state.auth)
+    const router = useRouter()
+    useEffect(() => {
+        if (!loggedInUser.token) {
+            router.push('/login')
+        }
+    }, [])
+    console.log(loggedInUser)
     return (
         <div className="flex h-screen bg-gray-50">
             <ToastContainer position="top-right" autoClose={3000} />
