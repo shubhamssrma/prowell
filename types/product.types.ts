@@ -82,6 +82,12 @@ export interface Product {
 export interface Category {
     _id: string;
     name: string;
+    slug: string;
+    description: string;
+    parentCategory: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface Species {
@@ -114,7 +120,15 @@ export interface ProductDetailsResponse {
 export interface CategoryListResponse {
     success: boolean;
     message: string;
-    data: Category[]
+    data: {
+        categories: Category[],
+        pagination: {
+            total: number;
+            page: number;
+            limit: number;
+            totalPages: number;
+        }
+    }
 }
 
 
@@ -122,4 +136,16 @@ export interface SpeciesListResponse {
     success: boolean;
     message: string;
     data: Species[]
+}
+
+
+export interface CategoryRequest {
+    name: string;
+    description: string;
+}
+
+export interface CategoryResponse {
+    success: boolean;
+    message: boolean;
+    data: Category
 }

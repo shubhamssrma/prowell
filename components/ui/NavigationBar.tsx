@@ -58,8 +58,8 @@ const navigationData: NavigationData = {
                     isMainCategory: true,
                     hasSubmenu: true,
                     submenu: [
-                        { label: 'Poultry', link: '/products/by-species/poultry' },
-                        { label: 'Aqua', link: '/products/by-species/aqua' }
+                        { label: 'Poultry', link: '/products/by-species' },
+                        { label: 'Aqua', link: '/products/by-species' }
                     ]
                 },
                 {
@@ -68,12 +68,12 @@ const navigationData: NavigationData = {
                     isMainCategory: true,
                     hasSubmenu: true,
                     submenu: [
-                        { label: 'Ionophore Coccidiostats', link: '/products/by-segment/ionophore-coccidiostats' },
-                        { label: 'Chemical Anticoccidials', link: '/products/by-segment/chemical-anticoccidials' },
-                        { label: 'Combination Anticoccidials', link: '/products/by-segment/combination-anticoccidials' },
-                        { label: 'Natural Growth Promoter', link: '/products/by-segment/natural-growth-promoter' },
-                        { label: 'Antibiotic Growth Promoter', link: '/products/by-segment/antibiotic-growth-promoter' },
-                        { label: 'Probiotics', link: '/products/by-segment/probiotics' },
+                        { label: 'Ionophore Coccidiostats', link: '/products/by-segment' },
+                        { label: 'Chemical Anticoccidials', link: '/products/by-segment' },
+                        { label: 'Combination Anticoccidials', link: '/products/by-segment' },
+                        { label: 'Natural Growth Promoter', link: '/products/by-segment' },
+                        { label: 'Antibiotic Growth Promoter', link: '/products/by-segment' },
+                        { label: 'Probiotics', link: '/products/by-segment' },
                     ]
                 },
                 {
@@ -82,27 +82,27 @@ const navigationData: NavigationData = {
                     isMainCategory: true,
                     hasSubmenu: true,
                     submenu: [
-                        { label: 'Coccidiosis Control', link: '/products/by-application/coccidiosis-control' },
-                        { label: 'Gut Health and Immunity', link: '/products/by-application/gut-health-and-immunity' },
-                        { label: 'Non Specific Diarrhoea', link: '/products/by-application/non-specific-diarrhoea' },
-                        { label: 'Fat Digestion and Absorption', link: '/products/by-application/fat-digestion-and-absorption' },
-                        { label: 'Feed Efficiency and Growth Promoter', link: '/products/by-application/feed-efficiency-and-growth-promoter' },
-                        { label: 'Mycoplasma Infection', link: '/products/by-application/mycoplasma-infection' },
-                        { label: 'Liver and Gall Bladder Protection', link: '/products/by-application/liver-and-gall-bladder-protection' }
+                        { label: 'Coccidiosis Control', link: '/products/by-application' },
+                        { label: 'Gut Health and Immunity', link: '/products/by-application' },
+                        { label: 'Non Specific Diarrhoea', link: '/products/by-application' },
+                        { label: 'Fat Digestion and Absorption', link: '/products/by-application' },
+                        { label: 'Feed Efficiency and Growth Promoter', link: '/products/by-application' },
+                        { label: 'Mycoplasma Infection', link: '/products/by-application' },
+                        { label: 'Liver and Gall Bladder Protection', link: '/products/by-applicationn' }
                     ]
                 },
-                {
-                    label: 'By Region',
-                    link: '/products/by-region',
-                    isMainCategory: true,
-                    hasSubmenu: true,
-                    submenu: [
-                        { label: 'North', link: '/products/by-region/north' },
-                        { label: 'East', link: '/products/by-region/east' },
-                        { label: 'South', link: '/products/by-region/south' },
-                        { label: 'West', link: '/products/by-region/west' }
-                    ]
-                },
+                // {
+                //     label: 'By Region',
+                //     link: '/products/by-region',
+                //     isMainCategory: true,
+                //     hasSubmenu: true,
+                //     submenu: [
+                //         { label: 'North', link: '/products/by-region/north' },
+                //         { label: 'East', link: '/products/by-region/east' },
+                //         { label: 'South', link: '/products/by-region/south' },
+                //         { label: 'West', link: '/products/by-region/west' }
+                //     ]
+                // },
             ]
         },
         {

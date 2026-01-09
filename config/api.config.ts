@@ -15,10 +15,12 @@ export const API_ENDPOINTS = {
   PRODUCTS: {
     GET_ALL: '/products',
     GET_BY_SPECIES: "/products/productsBySpecies",
+    GET_BY_SEGMENTS: "/products/productsBySegments",
     GET_BY_SLUG: "/products"
   },
   CATEGORIES: {
     GET_ALL: '/categories',
+    CREATE:'/categories'
   },
   SPECIES: {
     GET_ALL: '/species',

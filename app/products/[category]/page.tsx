@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Search, SlidersHorizontal, Grid3x3, List, ArrowRight, Tag } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Search, SlidersHorizontal, Grid3x3, List, ArrowRight, Tag, Loader2, Loader } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getProductsBySpecies } from '@/store/slices/productSlice';
+import { getProductsBySegments, getProductsBySpecies } from '@/store/slices/productSlice';
 import { Product } from '@/types/product.types';
 
 // interface Product {
@@ -26,6 +26,8 @@ const ProductsShowcasePage: React.FC = () => {
   const dispatch = useAppDispatch()
   const { products, loading, error } = useAppSelector(state => state.productReducer)
 
+  const urlParams = useParams()
+  console.log(urlParams)
   // const products: Product[] = [
   //   {
   //     id: 1,
@@ -141,13 +143,17 @@ const ProductsShowcasePage: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getProductsBySpecies())
-  }, [])
+    if (urlParams.category === 'by-species') {
+      dispatch(getProductsBySpecies())
+    } else if (urlParams.category === 'by-segment') {
+      dispatch(getProductsBySegments())
+    }
+  }, [urlParams])
 
 
-  if (loading) {
-    return "loading..."
-  }
+  // if (loading) {
+  //   return "loading..."
+  // }
 
   return (
     <div className="min-h-screen bg-white">
@@ -221,65 +227,95 @@ const ProductsShowcasePage: React.FC = () => {
         </div>
 
         {/* Products Display */}
-        <div className={
-          viewMode === 'grid'
-            ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
-            : 'space-y-6'
-        }>
-          {products.map((product) => (
-            <div
-              key={product._id}
-              onClick={() => handleProductClick(product)}
-              className={`bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden ${viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''
-                }`}
-            >
-              {/* Product Image */}
-              <div className={`relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 ${viewMode === 'list' ? 'sm:w-80 h-64 sm:h-auto flex-shrink-0' : 'aspect-video'
-                }`}>
-                <img
-                  src={product.featuredImage.url}
-                  alt={product.featuredImage.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                {product.isFeatured && (
-                  <span className="absolute top-4 right-4 px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-green-400 to-green-500 rounded-full shadow-lg">
-                    Featured
-                  </span>
-                )}
 
-                {/* Overlay on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                  <span className="text-white font-medium flex items-center gap-2">
-                    View Details
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </div>
+        {/* Empty State */}
+        {
+          loading ?
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-50 rounded-full mb-4">
+                <Loader className="w-8 h-8 text-cyan-500" />
               </div>
-
-              {/* Product Info */}
-              <div className="p-6 flex-1">
-                <div className="flex items-start justify-between mb-3">
-                  {
-                    product.categories.map(cat => {
-                      return (
-                        <span key={cat._id} className="inline-block px-3 py-1 text-xs font-semibold text-cyan-700 bg-cyan-50 rounded-full border border-cyan-200">
-                          {cat.name}
-                        </span>
-                      )
-                    })
-                  }
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Loading Products
+              </h3>
+              {/* <p className="text-gray-600">
+                  Try adjusting your search or filter to find what you're looking for
+                </p> */}
+            </div>
+            :
+            products.length === 0 ? (
+              <div className="text-center py-16">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-50 rounded-full mb-4">
+                  <Search className="w-8 h-8 text-cyan-500" />
                 </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-cyan-600 transition-colors">
-                  {product.name}
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  No products found
                 </h3>
-
-                <p className="text-gray-600 mb-4 line-clamp-2">
-                  {product.applicationUsage}
+                <p className="text-gray-600">
+                  Try adjusting your search or filter to find what you're looking for
                 </p>
+              </div>
+            ) :
+              <div className={
+                viewMode === 'grid'
+                  ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
+                  : 'space-y-6'
+              }>
+                {
+                  products.map((product) => (
+                    <div
+                      key={product._id}
+                      onClick={() => handleProductClick(product)}
+                      className={`bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden ${viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''
+                        }`}
+                    >
+                      {/* Product Image */}
+                      <div className={`relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 ${viewMode === 'list' ? 'sm:w-80 h-64 sm:h-auto flex-shrink-0' : 'aspect-video'
+                        }`}>
+                        <img
+                          src={product.featuredImage.url}
+                          alt={product.featuredImage.alt}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        {product.isFeatured && (
+                          <span className="absolute top-4 right-4 px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-green-400 to-green-500 rounded-full shadow-lg">
+                            Featured
+                          </span>
+                        )}
 
-                {/* Tags */}
-                {/* <div className="flex flex-wrap gap-2 mb-4">
+                        {/* Overlay on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                          <span className="text-white font-medium flex items-center gap-2">
+                            View Details
+                            <ArrowRight className="w-4 h-4" />
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Product Info */}
+                      <div className="p-6 flex-1">
+                        <div className="flex items-start justify-between mb-3">
+                          {
+                            product.categories.map(cat => {
+                              return (
+                                <span key={cat._id} className="inline-block px-3 py-1 text-xs font-semibold text-cyan-700 bg-cyan-50 rounded-full border border-cyan-200">
+                                  {cat.name}
+                                </span>
+                              )
+                            })
+                          }
+                        </div>
+
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-cyan-600 transition-colors">
+                          {product.name}
+                        </h3>
+
+                        <p className="text-gray-600 mb-4 line-clamp-2">
+                          {product.applicationUsage}
+                        </p>
+
+                        {/* Tags */}
+                        {/* <div className="flex flex-wrap gap-2 mb-4">
                   {product.tags.map((tag, index) => (
                     <span
                       key={index}
@@ -291,39 +327,29 @@ const ProductsShowcasePage: React.FC = () => {
                   ))}
                 </div> */}
 
-                {/* Learn More Button */}
-                <button
-                  className="inline-flex items-center gap-2 text-cyan-600 font-medium hover:gap-3 transition-all group/button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleProductClick(product);
-                  }}
-                >
-                  Learn More
-                  <ArrowRight className="w-4 h-4 group-hover/button:translate-x-1 transition-transform" />
-                </button>
+                        {/* Learn More Button */}
+                        <button
+                          className="inline-flex items-center gap-2 text-cyan-600 font-medium hover:gap-3 transition-all group/button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleProductClick(product);
+                          }}
+                        >
+                          Learn More
+                          <ArrowRight className="w-4 h-4 group-hover/button:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                }
               </div>
-            </div>
-          ))}
-        </div>
+        }
+      </div>
 
-        {/* Empty State */}
-        {products.length === 0 && (
-          <div className="text-center py-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-50 rounded-full mb-4">
-              <Search className="w-8 h-8 text-cyan-500" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No products found
-            </h3>
-            <p className="text-gray-600">
-              Try adjusting your search or filter to find what you're looking for
-            </p>
-          </div>
-        )}
 
-        {/* Pagination */}
-        {/* {products.length > 0 && (
+
+      {/* Pagination */}
+      {/* {products.length > 0 && (
           <div className="mt-12 flex justify-center">
             <div className="flex items-center gap-2">
               <button className="px-4 py-2 border-2 border-cyan-200 rounded-lg hover:bg-cyan-50 hover:border-cyan-300 transition-all">
@@ -346,8 +372,7 @@ const ProductsShowcasePage: React.FC = () => {
             </div>
           </div>
         )} */}
-      </div>
-    </div>
+    </div >
   );
 };
 

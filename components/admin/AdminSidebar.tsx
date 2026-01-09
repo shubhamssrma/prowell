@@ -89,6 +89,14 @@ const cmsSubMenu = [
   { title: "Gallary Management", href: "/admin/cms/gallary-management" },
 ];
 
+const productSubMenu = [
+  { title: "All Products", href: "/admin/product-management" },
+  { title: "Product Species", href: "/admin/product-management/species" },
+  { title: "Product Categories", href: "/admin/product-management/categories" },
+  { title: "Product Applications", href: "/admin/product-management/applications" },
+  { title: "Regions", href: "/admin/product-management/regions" },
+];
+
 const bottomMenuItems: MenuItem[] = []
 //  [
 //   {
@@ -108,6 +116,10 @@ export default function AdminSidebar() {
   // const dispatch = useAppDispatch()
   const [leadsOpen, setLeadsOpen] = useState(
     pathname.startsWith("/admin/cms")
+  );
+
+  const [productOpen, setProductOpen] = useState(
+    pathname.startsWith("/admin/product-management")
   );
 
   // console.log(leadsOpen)
@@ -161,6 +173,42 @@ export default function AdminSidebar() {
                     {leadsOpen && (
                       <div className="mt-1 ml-9 space-y-1">
                         {cmsSubMenu.map((sub) => {
+                          const isActive = pathname === sub.href;
+                          return (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              className={`block px-3 py-2 rounded-md text-sm transition ${isActive
+                                ? "bg-green-100 text-green-700 font-medium"
+                                : "text-gray-600 hover:bg-green-50 hover:text-green-700"
+                                }`}
+                            >
+                              {sub.title}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ) : item.title === "Product Management" ? (
+                  <div key="product-management">
+                    <button
+                      onClick={() => setProductOpen(!productOpen)}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all group ${pathname.startsWith("/admin/product-management")
+                        ? "bg-gradient-to-r from-cyan-500 to-green-500 text-white shadow-md"
+                        : "text-gray-700 hover:bg-green-50 hover:text-green-700"
+                        }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <HandCoins size={20} />
+                        <span className="text-sm font-medium">{item.title}</span>
+                      </div>
+                      {productOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                    </button>
+
+                    {productOpen && (
+                      <div className="mt-1 ml-9 space-y-1">
+                        {productSubMenu.map((sub) => {
                           const isActive = pathname === sub.href;
                           return (
                             <Link
