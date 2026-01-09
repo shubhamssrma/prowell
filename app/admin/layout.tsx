@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) 
             router.push('/login')
         }
     }, [])
-    console.log(loggedInUser)
+    // console.log(loggedInUser)
     return (
         <div className="flex h-screen bg-gray-50">
             <ToastContainer position="top-right" autoClose={3000} />

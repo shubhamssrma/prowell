@@ -110,7 +110,7 @@ export default function AdminSidebar() {
     pathname.startsWith("/admin/cms")
   );
 
-  console.log(leadsOpen)
+  // console.log(leadsOpen)
   const router = useRouter()
 
   const onUserLogout = () => {

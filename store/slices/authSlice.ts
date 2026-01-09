@@ -22,7 +22,6 @@ interface UserState {
         limit: number;
         totalPages: number;
     };
-    products: Product[]
 }
 
 const getPersistedUser = (): {
@@ -48,7 +47,6 @@ const initialState: UserState = {
     loading: false,
     error: null,
     loggedInUser: getPersistedUser(),
-    products: [],
     pagination: {
         total: 0,
         page: 1,
@@ -86,26 +84,6 @@ export const loginUser = createAsyncThunk(
 
 
 
-export const getProducts = createAsyncThunk(
-    'leads/getProducts',
-    async (
-        options: { page?: number; limit?: number, search?: string } | undefined,
-        { rejectWithValue }
-    ) => {
-        try {
-            const response = await productService.getProductList(options);
-            console.log(response)
-            return response;
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                return rejectWithValue(error.message);
-            }
-
-            return rejectWithValue('Failed to fetch lead by id');
-        }
-
-    }
-);
 
 const authSlice = createSlice({
     name: 'auth',
@@ -114,12 +92,12 @@ const authSlice = createSlice({
         /**
          * Reset leads state (useful when switching filters/screens)
          */
-        resetLeads(state) {
-            state.products = [];
-            state.pagination = initialState.pagination;
-            state.loading = false;
-            state.error = null;
-        },
+        // resetLeads(state) {
+        //     state.products = [];
+        //     state.pagination = initialState.pagination;
+        //     state.loading = false;
+        //     state.error = null;
+        // },
     },
     extraReducers: (builder) => {
         // Login User
@@ -140,20 +118,6 @@ const authSlice = createSlice({
             });
 
 
-        builder
-            .addCase(getProducts.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(getProducts.fulfilled, (state, action) => {
-                state.loading = false;
-                state.products = action.payload.data.products;
-                state.pagination = action.payload.data.pagination;
-            })
-            .addCase(getProducts.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload as string;
-            });
     },
 });
 

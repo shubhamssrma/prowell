@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { formatIndianBudget, formatDateTime } from '@/helpers';
 import { leadSources } from '@/constants/leadmanagement';
 import type { AsyncThunkAction } from '@reduxjs/toolkit';
-import { getProducts } from '@/store/slices/authSlice';
+import { getProducts } from '@/store/slices/productSlice';
 
 interface FetchLeadsPayload {
   page: number;
@@ -44,95 +44,95 @@ interface Stats {
   hot: number;
 }
 
-interface PageProps {
-  type: string;
-  title?: string;
-  viewLeadBaseUrl?: string;
-  editLeadBaseUrl?: string;
-  addLeadBaseUrl?: string;
-}
+// interface PageProps {
+//   type: string;
+//   title?: string;
+//   viewLeadBaseUrl?: string;
+//   editLeadBaseUrl?: string;
+//   addLeadBaseUrl?: string;
+// }
 
-const allProps = [
-  {
-    type: "all",
-    title: "All Leads",
-    viewLeadBaseUrl: "/account/leads/all",
-    editLeadBaseUrl: "/account/leads/all/edit",
-    addLeadBaseUrl: "/account/leads/all/add",
-  },
-  {
-    type: "working",
-    title: "Working Leads",
-    viewLeadBaseUrl: "/account/leads/working",
-    editLeadBaseUrl: "/account/leads/working/edit",
-    addLeadBaseUrl: "/account/leads/working/add",
-  },
-  {
-    type: "new",
-    title: "New Leads",
-    viewLeadBaseUrl: "/account/leads/new",
-    editLeadBaseUrl: "/account/leads/new/edit",
-    addLeadBaseUrl: "/account/leads/new/add",
-  },
-  {
-    type: "untouched",
-    title: "Untouched Leads",
-    viewLeadBaseUrl: "/account/leads/untouched",
-    editLeadBaseUrl: "/account/leads/untouched/edit",
-    addLeadBaseUrl: "/account/leads/untouched/add",
-  },
-  {
-    type: "expired",
-    title: "Expired Leads",
-    viewLeadBaseUrl: "/account/leads/expired",
-    editLeadBaseUrl: "/account/leads/expired/edit",
-    addLeadBaseUrl: "/account/leads/expired/add",
-  },
-  {
-    type: "rejected",
-    title: "Rejected Leads",
-    viewLeadBaseUrl: "/account/leads/rejected",
-    editLeadBaseUrl: "/account/leads/rejected/edit",
-    addLeadBaseUrl: "/account/leads/rejected/add",
-  },
-  {
-    type: "converted",
-    title: "Converted Leads",
-    viewLeadBaseUrl: "/account/leads/converted",
-    editLeadBaseUrl: "/account/leads/converted/edit",
-    addLeadBaseUrl: "/account/leads/converted/add",
-  }
-]
+// const allProps = [
+//   {
+//     type: "all",
+//     title: "All Leads",
+//     viewLeadBaseUrl: "/account/leads/all",
+//     editLeadBaseUrl: "/account/leads/all/edit",
+//     addLeadBaseUrl: "/account/leads/all/add",
+//   },
+//   {
+//     type: "working",
+//     title: "Working Leads",
+//     viewLeadBaseUrl: "/account/leads/working",
+//     editLeadBaseUrl: "/account/leads/working/edit",
+//     addLeadBaseUrl: "/account/leads/working/add",
+//   },
+//   {
+//     type: "new",
+//     title: "New Leads",
+//     viewLeadBaseUrl: "/account/leads/new",
+//     editLeadBaseUrl: "/account/leads/new/edit",
+//     addLeadBaseUrl: "/account/leads/new/add",
+//   },
+//   {
+//     type: "untouched",
+//     title: "Untouched Leads",
+//     viewLeadBaseUrl: "/account/leads/untouched",
+//     editLeadBaseUrl: "/account/leads/untouched/edit",
+//     addLeadBaseUrl: "/account/leads/untouched/add",
+//   },
+//   {
+//     type: "expired",
+//     title: "Expired Leads",
+//     viewLeadBaseUrl: "/account/leads/expired",
+//     editLeadBaseUrl: "/account/leads/expired/edit",
+//     addLeadBaseUrl: "/account/leads/expired/add",
+//   },
+//   {
+//     type: "rejected",
+//     title: "Rejected Leads",
+//     viewLeadBaseUrl: "/account/leads/rejected",
+//     editLeadBaseUrl: "/account/leads/rejected/edit",
+//     addLeadBaseUrl: "/account/leads/rejected/add",
+//   },
+//   {
+//     type: "converted",
+//     title: "Converted Leads",
+//     viewLeadBaseUrl: "/account/leads/converted",
+//     editLeadBaseUrl: "/account/leads/converted/edit",
+//     addLeadBaseUrl: "/account/leads/converted/add",
+//   }
+// ]
 const LeadsDashboard = ({ type }: { type: string }) => {
 
-  const matched = allProps.find(obj => obj.type === type) ?? {
-    type,
-    title: "",
-    viewLeadBaseUrl: "",
-    editLeadBaseUrl: "",
-    addLeadBaseUrl: ""
-  };
-  const { title, viewLeadBaseUrl, editLeadBaseUrl, addLeadBaseUrl } = matched;
+  // const matched = allProps.find(obj => obj.type === type) ?? {
+  //   type,
+  //   title: "",
+  //   viewLeadBaseUrl: "",
+  //   editLeadBaseUrl: "",
+  //   addLeadBaseUrl: ""
+  // };
+  // const { title, viewLeadBaseUrl, editLeadBaseUrl, addLeadBaseUrl } = matched;
 
 
   const dispatch = useAppDispatch()
   const { products, loading, error, pagination } = useAppSelector(state => state.productReducer)
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
-  const [showFilters, setShowFilters] = useState(false);
+  // const [showFilters, setShowFilters] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(50);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   // const [loadingLeads, setLoadingLeads] = useState<boolean>(true)
 
-  const stats: Stats = {
-    total: 82,
-    fresh: 40,
-    following: 19,
-    interested: 15,
-    hot: 8
-  };
+  // const stats: Stats = {
+  //   total: 82,
+  //   fresh: 40,
+  //   following: 19,
+  //   interested: 15,
+  //   hot: 8
+  // };
 
   // const allLeads: Lead[] = Array.from({ length: 50 }, (_, i) => {
   //     const baseLeads = [
@@ -197,15 +197,15 @@ const LeadsDashboard = ({ type }: { type: string }) => {
   //   }
   // };
 
-  const toggleSelectLead = (id: string) => {
-    setSelectedLeads(prev =>
-      prev.includes(id) ? prev.filter(leadId => leadId !== id) : [...prev, id]
-    );
-  };
+  // const toggleSelectLead = (id: string) => {
+  //   setSelectedLeads(prev =>
+  //     prev.includes(id) ? prev.filter(leadId => leadId !== id) : [...prev, id]
+  //   );
+  // };
 
-  const handleBulkUpload = () => {
-    alert('Bulk Upload functionality');
-  };
+  // const handleBulkUpload = () => {
+  //   alert('Bulk Upload functionality');
+  // };
 
   // const handleAddLead = () => {
   //     alert('Add New Lead functionality');
@@ -226,19 +226,19 @@ const LeadsDashboard = ({ type }: { type: string }) => {
   //     alert(`Assign lead ${leadId}`);
   // };
 
-  const handleExport = () => {
-    alert('Export leads functionality');
-  };
+  // const handleExport = () => {
+  //   alert('Export leads functionality');
+  // };
 
-  const filteredLeads = products.filter(lead =>
-    lead.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // const filteredLeads = products.filter(lead =>
+  //   lead.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
 
   // Pagination calculations
   // const totalPages = Math.ceil(filteredLeads.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedLeads = filteredLeads.slice(startIndex, endIndex);
+  // const paginatedLeads = filteredLeads.slice(startIndex, endIndex);
 
   // const currentPage = pagination.page;
   // const totalPages = pagination.totalPages;
@@ -294,10 +294,10 @@ const LeadsDashboard = ({ type }: { type: string }) => {
 
   useEffect(() => {
     dispatch(getProducts({ limit: itemsPerPage, page: currentPage, search: debouncedSearch }))
-  }, [currentPage, itemsPerPage, debouncedSearch, type, dispatch]);
+  }, [currentPage, itemsPerPage, debouncedSearch, type]);
 
 
-  // console.log(leads)
+  console.log("products : ", products)
   return (
     <>
       <div className="min-h-screen bg-gray-50 p-6">
@@ -305,7 +305,7 @@ const LeadsDashboard = ({ type }: { type: string }) => {
           {/* Header */}
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-2xl font-bold mb-1">{title || "All Products"}</h1>
+              <h1 className="text-2xl font-bold mb-1">{"All Products"}</h1>
               <p className="text-gray-600 text-sm">Manage your products</p>
             </div>
             <div className="flex gap-3">
@@ -398,7 +398,7 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                       <td colSpan={8} className="py-16 text-center">
                         <div className="flex flex-col items-center justify-center">
                           <Loader2 className="animate-spin text-blue-600" size={40} />
-                          <p className="text-gray-500 font-medium">Loading {title}...</p>
+                          <p className="text-gray-500 font-medium">Loading products...</p>
                         </div>
                       </td>
                     </tr>
@@ -407,7 +407,7 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                       <tr>
                         <td colSpan={8} className="py-16 text-center">
                           <div className="flex flex-col items-center justify-center">
-                            <p className="text-black font-medium">No Record Found!</p>
+                            <p className="text-black font-medium">No Product Found!</p>
                           </div>
                         </td>
                       </tr>
@@ -450,13 +450,13 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                                       <Pencil size={16} />
                                       Edit Product
                                     </Link>
-                                    <Link
+                                    {/* <Link
                                       href={`${viewLeadBaseUrl}/${lead._id}`}
                                       className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
                                     >
                                       <Eye size={16} />
                                       View
-                                    </Link>
+                                    </Link> */}
                                   </div>
                                 )}
                               </div>

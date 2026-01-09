@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Upload, X, Plus, Trash2, Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getCategories, getSpecies } from '@/store/slices/productSlice';
+import { toast } from 'react-toastify';
 
 // Types
 interface CloudinaryResponse {
@@ -252,16 +253,18 @@ const ProductForm: React.FC = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/products', {
+      // const baseURL = "http://localhost:5000/api"
+      const baseURL = "https://prowell-backend.onrender.com/api"
+      const response = await fetch(`${baseURL}/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error('Failed to create product');
-
+      // if (!response.ok) throw new Error('Failed to create product');
       const data = await response.json();
-      alert('Product created successfully!');
+      alert(data.message)
+      // alert('Product created successfully!');
       // Reset form or redirect
     } catch (error) {
       alert('Failed to create product');
