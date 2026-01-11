@@ -75,7 +75,7 @@ export function ProductHero() {
     // );
 
 
-    const handleDownload = (file?: { url: string; name?: string }) => {
+    const handleDownload = (file?: { url: string; name?: string, publicId?: string } | null) => {
         if (!file?.url) {
             alert('File not available');
             return;
