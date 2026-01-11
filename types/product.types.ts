@@ -93,6 +93,36 @@ export interface Category {
 export interface Species {
     _id: string;
     name: string;
+    slug: string;
+    description: string;
+    parentCategory: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+
+export interface Application {
+    _id: string;
+    name: string;
+    slug: string;
+    description: string;
+    parentCategory: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+
+export interface Region {
+    _id: string;
+    name: string;
+    slug: string;
+    description: string;
+    parentCategory: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface ProductListResponse {
@@ -135,7 +165,43 @@ export interface CategoryListResponse {
 export interface SpeciesListResponse {
     success: boolean;
     message: string;
-    data: Species[]
+    data: {
+        species: Species[],
+        pagination: {
+            total: number;
+            page: number;
+            limit: number;
+            totalPages: number;
+        }
+    }
+}
+
+export interface ApplicationListResponse {
+    success: boolean;
+    message: string;
+    data: {
+        applications: Application[],
+        pagination: {
+            total: number;
+            page: number;
+            limit: number;
+            totalPages: number;
+        }
+    }
+}
+
+export interface RegionListResponse {
+    success: boolean;
+    message: string;
+    data: {
+        regions: Region[],
+        pagination: {
+            total: number;
+            page: number;
+            limit: number;
+            totalPages: number;
+        }
+    }
 }
 
 

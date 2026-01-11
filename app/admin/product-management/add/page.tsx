@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { Upload, X, Plus, Trash2, Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getCategories, getSpecies } from '@/store/slices/productSlice';
+import { getCategories, getSpecies, getApplications, getRegions } from '@/store/slices/productSlice';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 // Types
 interface CloudinaryResponse {
@@ -56,6 +57,8 @@ interface ProductFormData {
   slug: string;
   categories: string[];
   species: string[];
+  regions: string[];
+  applications: string[];
   form: string;
   featuredImage: ImageData;
   images: ImageData[];
@@ -82,6 +85,8 @@ const ProductForm: React.FC = () => {
     slug: '',
     categories: [],
     species: [],
+    regions: [],
+    applications: [],
     form: '',
     featuredImage: { url: '', alt: '', publicId: '' },
     images: [],
@@ -94,10 +99,10 @@ const ProductForm: React.FC = () => {
       withdrawalPeriod: '',
     },
     dosage: [
-      { species: '', dosage: '' }
+      // { species: '', dosage: '' }
     ],
     modeOfAction: [
-      { title: '', description: '' }
+      // { title: '', description: '' }
     ],
     keyBenefits: [],
     applicationUsage: '',
@@ -120,8 +125,9 @@ const ProductForm: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
 
-  const { loading, error, categories, species } = useAppSelector(state => state.productReducer)
+  const { loading, error, categories, species, regions, applications } = useAppSelector(state => state.productReducer)
   const dispatch = useAppDispatch()
+  const router = useRouter()
   // // Mock categories and species - replace with actual data
   // const mockCategories = [
   //   { id: '507f1f77bcf86cd799439011', name: 'Fertilizers' },
@@ -264,6 +270,7 @@ const ProductForm: React.FC = () => {
       // if (!response.ok) throw new Error('Failed to create product');
       const data = await response.json();
       alert(data.message)
+      router.push('/admin/product-management')
       // alert('Product created successfully!');
       // Reset form or redirect
     } catch (error) {
@@ -283,6 +290,8 @@ const ProductForm: React.FC = () => {
   useEffect(() => {
     dispatch(getCategories())
     dispatch(getSpecies())
+    dispatch(getApplications())
+    dispatch(getRegions())
   }, [])
 
   return (
@@ -335,7 +344,7 @@ const ProductForm: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Product Name *
+                  Product Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -349,7 +358,7 @@ const ProductForm: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Slug *
+                  Slug <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -374,7 +383,7 @@ const ProductForm: React.FC = () => {
                       <label
                         key={cat._id}
                         className={`group relative flex items-center gap-3 rounded-2xl px-4 py-3 cursor-pointer transition
-            ${isSelected
+                          ${isSelected
                             ? 'bg-green-50 ring-2 ring-green-600'
                             : 'bg-gray-50 hover:bg-gray-100'
                           }`}
@@ -397,7 +406,7 @@ const ProductForm: React.FC = () => {
                         {/* Custom check indicator */}
                         <div
                           className={`flex h-5 w-5 items-center justify-center rounded-md border transition
-              ${isSelected
+                            ${isSelected
                               ? 'bg-green-600 border-green-600'
                               : 'border-gray-300 group-hover:border-gray-400'
                             }`}
@@ -430,7 +439,7 @@ const ProductForm: React.FC = () => {
 
               <div className="space-y-3">
                 <label className="block text-sm font-medium text-gray-700">
-                  Species
+                  Species <span className="text-red-500">*</span>
                 </label>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -441,7 +450,7 @@ const ProductForm: React.FC = () => {
                       <label
                         key={spec._id}
                         className={`group relative flex items-center gap-3 rounded-2xl px-4 py-3 cursor-pointer transition
-            ${isSelected
+                          ${isSelected
                             ? 'bg-green-50 ring-2 ring-green-600'
                             : 'bg-gray-50 hover:bg-gray-100'
                           }`}
@@ -464,7 +473,7 @@ const ProductForm: React.FC = () => {
                         {/* Custom check */}
                         <div
                           className={`flex h-5 w-5 items-center justify-center rounded-md border transition
-              ${isSelected
+                            ${isSelected
                               ? 'bg-green-600 border-green-600'
                               : 'border-gray-300 group-hover:border-gray-400'
                             }`}
@@ -495,12 +504,147 @@ const ProductForm: React.FC = () => {
               </div>
 
 
+              <div className="space-y-3">
+                <label className="block text-sm font-medium text-gray-700">
+                  Applications <span className="text-red-500">*</span>
+                </label>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {applications.map((cat) => {
+                    const isSelected = formData.applications.includes(cat._id);
+
+                    return (
+                      <label
+                        key={cat._id}
+                        className={`group relative flex items-center gap-3 rounded-2xl px-4 py-3 cursor-pointer transition
+                          ${isSelected
+                            ? 'bg-green-50 ring-2 ring-green-600'
+                            : 'bg-gray-50 hover:bg-gray-100'
+                          }`}
+                      >
+                        {/* Hidden checkbox (accessibility) */}
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              applications: isSelected
+                                ? prev.applications.filter((id) => id !== cat._id)
+                                : [...prev.applications, cat._id],
+                            }));
+                          }}
+                          className="sr-only"
+                        />
+
+                        {/* Custom check indicator */}
+                        <div
+                          className={`flex h-5 w-5 items-center justify-center rounded-md border transition
+                            ${isSelected
+                              ? 'bg-green-600 border-green-600'
+                              : 'border-gray-300 group-hover:border-gray-400'
+                            }`}
+                        >
+                          {isSelected && (
+                            <svg
+                              className="h-3.5 w-3.5 text-white"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          )}
+                        </div>
+
+                        {/* Text */}
+                        <span className="text-sm font-medium text-gray-800">
+                          {cat.name}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+
+
+              <div className="space-y-3">
+                <label className="block text-sm font-medium text-gray-700">
+                  Regions <span className="text-red-500">*</span>
+                </label>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {regions.map((cat) => {
+                    const isSelected = formData.regions.includes(cat._id);
+
+                    return (
+                      <label
+                        key={cat._id}
+                        className={`group relative flex items-center gap-3 rounded-2xl px-4 py-3 cursor-pointer transition
+                          ${isSelected
+                            ? 'bg-green-50 ring-2 ring-green-600'
+                            : 'bg-gray-50 hover:bg-gray-100'
+                          }`}
+                      >
+                        {/* Hidden checkbox (accessibility) */}
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              regions: isSelected
+                                ? prev.regions.filter((id) => id !== cat._id)
+                                : [...prev.regions, cat._id],
+                            }));
+                          }}
+                          className="sr-only"
+                        />
+
+                        {/* Custom check indicator */}
+                        <div
+                          className={`flex h-5 w-5 items-center justify-center rounded-md border transition
+                            ${isSelected
+                              ? 'bg-green-600 border-green-600'
+                              : 'border-gray-300 group-hover:border-gray-400'
+                            }`}
+                        >
+                          {isSelected && (
+                            <svg
+                              className="h-3.5 w-3.5 text-white"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          )}
+                        </div>
+
+                        {/* Text */}
+                        <span className="text-sm font-medium text-gray-800">
+                          {cat.name}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Form
+                  Form <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
+                  required
                   value={formData.form}
                   onChange={(e) => setFormData(prev => ({ ...prev, form: e.target.value }))}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
@@ -518,7 +662,7 @@ const ProductForm: React.FC = () => {
               {/* Featured Image */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Featured Image *
+                  Featured Image <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   {formData.featuredImage.url ? (

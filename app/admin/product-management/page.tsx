@@ -397,8 +397,13 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                     <tr>
                       <td colSpan={8} className="py-16 text-center">
                         <div className="flex flex-col items-center justify-center">
-                          <Loader2 className="animate-spin text-blue-600" size={40} />
-                          <p className="text-gray-500 font-medium">Loading products...</p>
+                          <Loader2 className="animate-spin text-green-600" size={40} />
+                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                            Loading Products
+                          </h3>
+                          <p className="text-gray-600">
+                            Wait we are searching that you're looking for
+                          </p>
                         </div>
                       </td>
                     </tr>

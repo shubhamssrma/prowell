@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { formatIndianBudget, formatDateTime } from '@/helpers';
 import { leadSources } from '@/constants/leadmanagement';
 import type { AsyncThunkAction } from '@reduxjs/toolkit';
-import { createCategory, getCategories, getProducts } from '@/store/slices/productSlice';
+import { createCategory, deleteCategory, getCategories, getProducts } from '@/store/slices/productSlice';
 import { Category } from '@/types/product.types';
 
 // interface FetchLeadsPayload {
@@ -248,8 +248,15 @@ const CategoryPage = () => {
     setFormData({ name: '', description: '' });
   };
 
+  const handleDeleteCategory = async (id: string) => {
+    const resp = await dispatch(deleteCategory({ id })).unwrap()
+    if (resp.success) {
+      await dispatch(getCategories({ limit: itemsPerPage, page: currentPage, search: debouncedSearch }))
+    }
+  }
 
-  console.log("Categories : ", categories)
+
+  // console.log("Categories : ", categories)
   return (
     <>
       <div className="min-h-screen bg-gray-50 p-6">
@@ -395,13 +402,14 @@ const CategoryPage = () => {
                                 </button>
                                 {activeDropdown === obj.slug && (
                                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
-                                    <button
+                                    {/* <button
                                       className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
                                     >
                                       <Pencil size={16} color='blue' />
                                       Edit Category
-                                    </button>
+                                    </button> */}
                                     <button
+                                      onClick={() => handleDeleteCategory(obj._id)}
                                       className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
                                     >
                                       <Trash size={16} color='red' />

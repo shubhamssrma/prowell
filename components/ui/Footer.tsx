@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             { label: 'By Species', href: '/products/by-species' },
             { label: 'By Segment', href: '/products/by-segment' },
             { label: 'By Application', href: '/products/by-application' },
-            // { label: 'By Region', href: '/products/by-region' },
+            { label: 'By Region', href: '/products/by-region' },
         ],
         support: [
             { label: 'Contact US', href: '/contact' },

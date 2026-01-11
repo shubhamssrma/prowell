@@ -32,9 +32,9 @@ export function DosageSection() {
           </table>
         </div>
 
-        <p className="mt-6 text-sm text-gray-600 text-center">
+        {/* <p className="mt-6 text-sm text-gray-600 text-center">
           Compatible with anticoccidials and standard coccidiosis control programs.
-        </p>
+        </p> */}
       </div>
     </section>
   );

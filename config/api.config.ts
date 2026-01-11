@@ -16,14 +16,30 @@ export const API_ENDPOINTS = {
     GET_ALL: '/products',
     GET_BY_SPECIES: "/products/productsBySpecies",
     GET_BY_SEGMENTS: "/products/productsBySegments",
-    GET_BY_SLUG: "/products"
+    GET_BY_APPLICATIONS: "/products/productsByApplications",
+    GET_BY_REGIONS: "/products/productsByRegions",
+    GET_BY_SLUG: "/products",
+    GET_ALL_FEATURED:'/products/featured'
   },
   CATEGORIES: {
     GET_ALL: '/categories',
-    CREATE:'/categories'
+    CREATE: '/categories',
+    DELETE: '/categories'
   },
   SPECIES: {
     GET_ALL: '/species',
+    CREATE: '/species',
+    DELETE: '/species'
+  },
+  APPLICATION: {
+    GET_ALL: '/applications',
+    CREATE: '/applications',
+    DELETE: '/applications'
+  },
+  REGION: {
+    GET_ALL: '/regions',
+    CREATE: '/regions',
+    DELETE: '/regions'
   },
 
   USERS: {

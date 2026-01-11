@@ -95,14 +95,30 @@ export function ProductHero() {
                             {/* Main Image */}
                             <div className="w-full bg-white rounded-lg p-8 mb-6 flex items-center justify-center">
                                 <img
-                                    src={productDetails?.featuredImage.url}
-                                    alt={productDetails?.featuredImage.alt}
+                                    src={selectedImage?.url || productDetails?.featuredImage.url}
+                                    alt={selectedImage?.alt || productDetails?.featuredImage.alt}
                                     className="max-w-full h-auto max-h-96 object-contain"
                                 />
                             </div>
 
                             {/* Thumbnail Images */}
-                            <div className="flex gap-4">
+                            <div className="flex gap-4 flex-wrap">
+                                {
+                                    selectedImage &&
+                                    <button
+                                        onClick={() => setSelectedImage(productDetails?.featuredImage)}
+                                        className={`w-24 h-24 rounded-lg border-2 overflow-hidden transition-all ${selectedImage?.url === productDetails?.featuredImage.url
+                                            ? 'border-blue-600 ring-2 ring-blue-200'
+                                            : 'border-gray-200 hover:border-gray-300'
+                                            }`}
+                                    >
+                                        <img
+                                            src={productDetails?.featuredImage.url}
+                                            alt={productDetails?.featuredImage.alt}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </button>
+                                }
                                 {productDetails?.images.map((image, i) => (
                                     <button
                                         key={i}

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Search, SlidersHorizontal, Grid3x3, List, ArrowRight, Tag, Loader2, Loader } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getProductsBySegments, getProductsBySpecies } from '@/store/slices/productSlice';
+import { getProductsByApplications, getProductsByRegions, getProductsBySegments, getProductsBySpecies } from '@/store/slices/productSlice';
 import { Product } from '@/types/product.types';
 
 // interface Product {
@@ -23,6 +23,8 @@ const ProductsShowcasePage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
   const dispatch = useAppDispatch()
   const { products, loading, error } = useAppSelector(state => state.productReducer)
 
@@ -133,6 +135,14 @@ const ProductsShowcasePage: React.FC = () => {
   //   return matchesCategory && matchesSearch;
   // });
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 1000);
+
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+
   const handleProductClick = (product: Product | undefined) => {
     // Navigate to product detail page
     // console.log(`Navigate to product: ${productId}`);
@@ -144,11 +154,15 @@ const ProductsShowcasePage: React.FC = () => {
 
   useEffect(() => {
     if (urlParams.category === 'by-species') {
-      dispatch(getProductsBySpecies())
+      dispatch(getProductsBySpecies({ search: debouncedSearch }))
     } else if (urlParams.category === 'by-segment') {
-      dispatch(getProductsBySegments())
+      dispatch(getProductsBySegments({ search: debouncedSearch }))
+    } else if (urlParams.category === 'by-application') {
+      dispatch(getProductsByApplications({ search: debouncedSearch }))
+    } else if (urlParams.category === 'by-region') {
+      dispatch(getProductsByRegions({ search: debouncedSearch }))
     }
-  }, [urlParams])
+  }, [urlParams, debouncedSearch])
 
 
   // if (loading) {
@@ -178,7 +192,7 @@ const ProductsShowcasePage: React.FC = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Search products by name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 border-2 border-cyan-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none"
@@ -232,15 +246,15 @@ const ProductsShowcasePage: React.FC = () => {
         {
           loading ?
             <div className="text-center py-16">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-50 rounded-full mb-4">
-                <Loader className="w-8 h-8 text-cyan-500" />
+              <div className="flex flex-col items-center justify-center">
+                <Loader2 className="animate-spin text-cyan-600" size={40} />
+                <h3 className="text-xl font-semibold text-gray-900 my-2">
+                  Loading Products
+                </h3>
+                <p className="text-gray-600">
+                  Wait we are searching that you're looking for
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Loading Products
-              </h3>
-              {/* <p className="text-gray-600">
-                  Try adjusting your search or filter to find what you're looking for
-                </p> */}
             </div>
             :
             products.length === 0 ? (
@@ -275,7 +289,7 @@ const ProductsShowcasePage: React.FC = () => {
                         <img
                           src={product.featuredImage.url}
                           alt={product.featuredImage.alt}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                         />
                         {product.isFeatured && (
                           <span className="absolute top-4 right-4 px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-green-400 to-green-500 rounded-full shadow-lg">
@@ -311,21 +325,21 @@ const ProductsShowcasePage: React.FC = () => {
                         </h3>
 
                         <p className="text-gray-600 mb-4 line-clamp-2">
-                          {product.applicationUsage}
+                          {product.productSmallDescription}
                         </p>
 
                         {/* Tags */}
-                        {/* <div className="flex flex-wrap gap-2 mb-4">
-                  {product.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="inline-flex items-center gap-1 text-xs text-green-700 bg-green-50 px-2 py-1 rounded border border-green-200"
-                    >
-                      <Tag className="w-3 h-3" />
-                      {tag}
-                    </span>
-                  ))}
-                </div> */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {product.species.map((tag, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center gap-1 text-xs text-green-700 bg-green-50 px-2 py-1 rounded border border-green-200"
+                            >
+                              <Tag className="w-3 h-3" />
+                              {tag.name}
+                            </span>
+                          ))}
+                        </div>
 
                         {/* Learn More Button */}
                         <button

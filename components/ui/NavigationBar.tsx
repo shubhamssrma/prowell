@@ -1,7 +1,9 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronDown, ChevronRight, X, Menu, ChevronUp } from 'lucide-react';
 import { usePathname } from "next/navigation";
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { getApplications, getCategories, getRegions, getSpecies } from '@/store/slices/productSlice';
 
 type SubMenuItem = {
     label: string;
@@ -32,116 +34,16 @@ type NavigationData = {
     menuItems: MenuItem[];
 };
 
+
 // Navigation Data Structure
 const navigationData: NavigationData = {
     logo: {
         src: "/images/logo.png",
         alt: "Prowell logo"
     },
-    menuItems: [
-        {
-            id: 'home',
-            label: 'Home',
-            hasDropdown: false,
-            link: '/',
-        },
-
-        {
-            id: 'products',
-            label: 'Products',
-            hasDropdown: true,
-            link: '#',
-            dropdownItems: [
-                {
-                    label: 'By Species',
-                    link: '/products/by-species',
-                    isMainCategory: true,
-                    hasSubmenu: true,
-                    submenu: [
-                        { label: 'Poultry', link: '/products/by-species' },
-                        { label: 'Aqua', link: '/products/by-species' }
-                    ]
-                },
-                {
-                    label: 'By Segment',
-                    link: '/products/by-segment',
-                    isMainCategory: true,
-                    hasSubmenu: true,
-                    submenu: [
-                        { label: 'Ionophore Coccidiostats', link: '/products/by-segment' },
-                        { label: 'Chemical Anticoccidials', link: '/products/by-segment' },
-                        { label: 'Combination Anticoccidials', link: '/products/by-segment' },
-                        { label: 'Natural Growth Promoter', link: '/products/by-segment' },
-                        { label: 'Antibiotic Growth Promoter', link: '/products/by-segment' },
-                        { label: 'Probiotics', link: '/products/by-segment' },
-                    ]
-                },
-                {
-                    label: 'By Application',
-                    link: '/products/by-application',
-                    isMainCategory: true,
-                    hasSubmenu: true,
-                    submenu: [
-                        { label: 'Coccidiosis Control', link: '/products/by-application' },
-                        { label: 'Gut Health and Immunity', link: '/products/by-application' },
-                        { label: 'Non Specific Diarrhoea', link: '/products/by-application' },
-                        { label: 'Fat Digestion and Absorption', link: '/products/by-application' },
-                        { label: 'Feed Efficiency and Growth Promoter', link: '/products/by-application' },
-                        { label: 'Mycoplasma Infection', link: '/products/by-application' },
-                        { label: 'Liver and Gall Bladder Protection', link: '/products/by-applicationn' }
-                    ]
-                },
-                // {
-                //     label: 'By Region',
-                //     link: '/products/by-region',
-                //     isMainCategory: true,
-                //     hasSubmenu: true,
-                //     submenu: [
-                //         { label: 'North', link: '/products/by-region/north' },
-                //         { label: 'East', link: '/products/by-region/east' },
-                //         { label: 'South', link: '/products/by-region/south' },
-                //         { label: 'West', link: '/products/by-region/west' }
-                //     ]
-                // },
-            ]
-        },
-        {
-            id: 'about',
-            label: 'About Us',
-            hasDropdown: true,
-            link: '#',
-            dropdownItems: [
-                { label: 'Our Edge', link: '/about/our-edge' },
-                { label: 'Our Team', link: '/about/our-team' },
-                // { label: 'Global Network', link: '/about/global-network' },
-                // { label: 'Certificates', link: '/about/certificates' },
-            ]
-        },
-        // {
-        //     id: 'blog',
-        //     label: 'Blogs',
-        //     hasDropdown: false,
-        //     link: '/blogs',
-        // },
-        {
-            id: 'resource-center',
-            label: 'Resource Center',
-            hasDropdown: true,
-            link: '#',
-            dropdownItems: [
-                { label: 'News and Events', link: '/resource-center/news-and-events' },
-                { label: 'Blogs', link: '/resource-center/blogs' },
-                { label: 'FAQs', link: '/resource-center/faqs' },
-            ]
-        },
-        {
-            id: 'contact',
-            label: 'Contact',
-            hasDropdown: false,
-            link: '/contact',
-        }
-    ]
+    menuItems: []
 };
+
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -158,18 +60,125 @@ const Navbar = () => {
     const [hoveredSubmenu, setHoveredSubmenu] = useState<string | null>(null);
     const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
     const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
-
+    const dispatch = useAppDispatch()
+    const { loading, error, species, applications, regions, categories } = useAppSelector(state => state.productReducer)
+    const [navigationMenu, setNavigationMenu] = useState<NavigationData>(navigationData)
     // Get main categories from products dropdown
     const getMainCategories = () => {
-        const productsMenu = navigationData.menuItems.find(item => item.id === 'products');
+        const productsMenu = navigationMenu.menuItems.find(item => item.id === 'products');
         return productsMenu?.dropdownItems?.filter(item => item.isMainCategory) || [];
     };
 
     // Get regular categories from products dropdown
     const getRegularCategories = () => {
-        const productsMenu = navigationData.menuItems.find(item => item.id === 'products');
+        const productsMenu = navigationMenu.menuItems.find(item => item.id === 'products');
         return productsMenu?.dropdownItems?.filter(item => !item.isMainCategory) || [];
     };
+
+    const buildProductsMenu = (): MenuItem => ({
+        id: 'products',
+        label: 'Products',
+        hasDropdown: true,
+        link: '#',
+        dropdownItems: [
+            species.length && {
+                label: 'By Species',
+                link: '/products/by-species',
+                isMainCategory: true,
+                hasSubmenu: true,
+                submenu: species.map(item => ({
+                    label: item.name,
+                    link: `/products/by-species`,
+                    // link: `/products/by-species/${item.slug}`,
+                })),
+            },
+            categories.length && {
+                label: 'By Segment',
+                link: '/products/by-segment',
+                isMainCategory: true,
+                hasSubmenu: true,
+                submenu: categories.map(item => ({
+                    label: item.name,
+                    link: `/products/by-segment`,
+                    // link: `/products/by-segment/${item.slug}`,
+                })),
+            },
+            applications.length && {
+                label: 'By Application',
+                link: '/products/by-application',
+                isMainCategory: true,
+                hasSubmenu: true,
+                submenu: applications.map(item => ({
+                    label: item.name,
+                    link: `/products/by-application`,
+                    // link: `/products/by-application/${item.slug}`,
+                })),
+            },
+            regions.length && {
+                label: 'By Region',
+                link: '/products/by-region',
+                isMainCategory: true,
+                hasSubmenu: true,
+                submenu: regions.map(item => ({
+                    label: item.name,
+                    link: `/products/by-region`,
+                    // link: `/products/by-region/${item.slug}`,
+                })),
+            },
+        ].filter(Boolean) as DropdownItem[], // 👈 critical
+    });
+
+
+
+    useEffect(() => {
+        dispatch(getApplications())
+        dispatch(getRegions())
+        dispatch(getCategories())
+        dispatch(getSpecies())
+    }, [dispatch])
+
+
+    useEffect(() => {
+        setNavigationMenu({
+            logo: navigationData.logo,
+            menuItems: [
+                {
+                    id: 'home',
+                    label: 'Home',
+                    hasDropdown: false,
+                    link: '/',
+                },
+                buildProductsMenu(), // ← safe builder
+                {
+                    id: 'about',
+                    label: 'About Us',
+                    hasDropdown: true,
+                    link: '#',
+                    dropdownItems: [
+                        { label: 'Our Edge', link: '/about/our-edge' },
+                        { label: 'Our Team', link: '/about/our-team' },
+                    ],
+                },
+                {
+                    id: 'resource-center',
+                    label: 'Resource Center',
+                    hasDropdown: true,
+                    link: '#',
+                    dropdownItems: [
+                        { label: 'News and Events', link: '/resource-center/news-and-events' },
+                        { label: 'Blogs', link: '/resource-center/blogs' },
+                        { label: 'FAQs', link: '/resource-center/faqs' },
+                    ],
+                },
+                {
+                    id: 'contact',
+                    label: 'Contact',
+                    hasDropdown: false,
+                    link: '/contact',
+                },
+            ],
+        });
+    }, [species, applications, categories, regions]);
 
     return (
         <>
@@ -188,7 +197,7 @@ const Navbar = () => {
 
                         {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center space-x-8">
-                            {navigationData.menuItems.map((item) => (
+                            {navigationMenu.menuItems.map((item) => (
                                 <div
                                     key={item.id}
                                     className="relative group"
@@ -336,7 +345,7 @@ const Navbar = () => {
 
                     {/* Mobile Menu Items */}
                     <div className="py-2">
-                        {navigationData.menuItems.map((item) => (
+                        {navigationMenu.menuItems.map((item) => (
                             <div key={item.id} className="border-b border-gray-100">
                                 {item.hasDropdown ? (
                                     <>
