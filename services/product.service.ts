@@ -204,6 +204,16 @@ class ProductService {
     }
 
 
+    // /**
+    //  * Get Product By ID
+    //  */
+    async getProductByID(options?: {
+        id?: string;
+    }): Promise<ProductDetailsResponse> {
+        const url = `${API_ENDPOINTS.PRODUCTS.GET_BY_ID}/${options?.id}`;
+        return ProductManagementService.get<ProductDetailsResponse>(url);
+    }
+
 
     // /**
     //  * Add New Category

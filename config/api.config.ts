@@ -19,6 +19,7 @@ export const API_ENDPOINTS = {
     GET_BY_APPLICATIONS: "/products/productsByApplications",
     GET_BY_REGIONS: "/products/productsByRegions",
     GET_BY_SLUG: "/products",
+    GET_BY_ID: "/products/product-by-id",
     GET_ALL_FEATURED:'/products/featured'
   },
   CATEGORIES: {

@@ -513,7 +513,7 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                           key={page}
                           onClick={() => handlePageChange(page as number)}
                           className={`px-3 py-1 rounded-lg text-sm ${currentPage === page
-                            ? 'bg-blue-600 text-white'
+                            ? 'bg-green-600 text-white'
                             : 'border border-gray-300 hover:bg-gray-50'
                             }`}
                         >

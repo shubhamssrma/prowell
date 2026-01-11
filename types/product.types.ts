@@ -25,7 +25,21 @@ interface CategoryItem {
     slug: string;
 }
 
+interface RegionItem {
+    _id: string;
+    name: string;
+    slug: string;
+}
+
+interface ApplicationItem {
+    _id: string;
+    name: string;
+    slug: string;
+}
+
 interface SEOData {
+    metaDescription: string;
+    metaTitle: string;
     keywords: string[];
 }
 
@@ -34,6 +48,8 @@ interface QuickFacts {
     shelfLife: string;
     packaging: string;
     withdrawalPeriod: string;
+    activeIngredients: string;
+    solubility: string;
 }
 
 interface FileData {
@@ -55,6 +71,8 @@ export interface Product {
     applicationUsage: string;
     restrictions: string[];
     isActive: boolean;
+    applications: ApplicationItem[];
+    regions: RegionItem[];
     categories: CategoryItem[];
     seo: SEOData;
     createdAt: string;
@@ -63,20 +81,19 @@ export interface Product {
     featuredImage: {
         url: string;
         alt: string;
+        publicId: string;
     },
     images: {
         url: string;
         alt: string;
+        publicId: string;
     }[],
     isFeatured: boolean;
     productOverview: string;
     productSmallDescription: string;
     productDescription: string;
-    sampleFile: FileData;
-    specSheet: {
-        url: string;
-        alt: string;
-    }
+    sampleFile: FileData | null;
+    specSheet: FileData | null
 }
 
 export interface Category {
