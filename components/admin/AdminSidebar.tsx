@@ -20,6 +20,8 @@ import type { LucideIcon } from "lucide-react";
 // import { logoutUser } from "@/store/slices/registrationSlice";
 // import { useAppDispatch } from "@/store/hooks";
 import React, { useState } from "react";
+import { useAppDispatch } from "@/store/hooks";
+import { logoutUser } from "@/store/slices/authSlice";
 
 export type MenuItem = {
   title: string;
@@ -113,7 +115,7 @@ const bottomMenuItems: MenuItem[] = []
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const [leadsOpen, setLeadsOpen] = useState(
     pathname.startsWith("/admin/cms")
   );
@@ -126,9 +128,8 @@ export default function AdminSidebar() {
   const router = useRouter()
 
   const onUserLogout = () => {
-    // dispatch(logoutUser())
-    // router.replace('/login')
-    console.log('hello')
+    dispatch(logoutUser())
+    router.replace('/login')
   }
   return (
     <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">

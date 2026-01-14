@@ -38,45 +38,55 @@ export function ProductHighlights() {
                     </h2>
                 </div>
 
-                <div className="grid md:grid-cols-4 gap-8">
-                    <div className="border rounded-2xl p-8 bg-green-50">
-                        <h3 className="font-semibold text-green-800">
-                            Total CFU
-                        </h3>
-                        <p className="mt-4 text-sm text-gray-600">
-                            {productDetails?.quickFacts.concentration}
-                        </p>
-                    </div>
+                <div className="grid gap-8 justify-center [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
+                    {
+                        productDetails?.quickFacts?.activeIngredients &&
+                        <div className="border rounded-2xl p-8 bg-green-50">
+                            <h3 className="font-semibold text-green-800">
+                                Active Ingredients
+                            </h3>
+                            <p className="mt-4 text-sm text-gray-600">
+                                {productDetails?.quickFacts?.activeIngredients}
+                            </p>
+                        </div>
+                    }
+
+                    {
+                        productDetails?.quickFacts.shelfLife &&
+                        <div className="border rounded-2xl p-8 bg-green-50">
+                            <h3 className="font-semibold text-green-800">
+                                Shelf Life
+                            </h3>
+                            <p className="mt-4 text-sm text-gray-600">
+                                {productDetails?.quickFacts.shelfLife}
+                            </p>
+                        </div>
+                    }
+
+                    {
+                        productDetails?.quickFacts.concentration &&
+                        <div className="border rounded-2xl p-8 bg-green-50">
+                            <h3 className="font-semibold text-green-800">
+                                Total CFU
+                            </h3>
+                            <p className="mt-4 text-sm text-gray-600">
+                                {productDetails?.quickFacts.concentration}
+                            </p>
+                        </div>
+                    }
 
 
-                    <div className="border rounded-2xl p-8 bg-green-50">
-                        <h3 className="font-semibold text-green-800">
-                            Shelf Life
-                        </h3>
-                        <p className="mt-4 text-sm text-gray-600">
-                            {productDetails?.quickFacts.shelfLife}
-                        </p>
-                    </div>
-
-
-                    <div className="border rounded-2xl p-8 bg-green-50">
-                        <h3 className="font-semibold text-green-800">
-                            Form
-                        </h3>
-                        <p className="mt-4 text-sm text-gray-600">
-                            {productDetails?.form}
-                        </p>
-                    </div>
-
-
-                    <div className="border rounded-2xl p-8 bg-green-50">
-                        <h3 className="font-semibold text-green-800">
-                            Packaging
-                        </h3>
-                        <p className="mt-4 text-sm text-gray-600">
-                            {productDetails?.quickFacts.packaging}
-                        </p>
-                    </div>
+                    {
+                        productDetails?.quickFacts.withdrawalPeriod &&
+                        <div className="border rounded-2xl p-8 bg-green-50">
+                            <h3 className="font-semibold text-green-800">
+                                Withdrawal Period
+                            </h3>
+                            <p className="mt-4 text-sm text-gray-600">
+                                {productDetails?.quickFacts.withdrawalPeriod}
+                            </p>
+                        </div>
+                    }
                 </div>
             </div>
         </section>

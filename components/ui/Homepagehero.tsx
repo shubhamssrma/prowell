@@ -185,8 +185,8 @@ const slides: Slide[] = [
     {
         id: 1,
         subtitle: 'Discover the Nature with',
-        title: 'HEALTH POULTRY SUSTAINABLE FUTURE',
-        description: 'At PureGlow Skincare, we believe in the power of nature to nurture and restore your skin. Our products are crafted with the purest organic ingredients, harnessing the gifts of the earth to create a radiant, healthy glow for your skin.',
+        title: 'Supporting Poultry Health for a Sustainable Future',
+        description: 'At Prowell Lifesciences, we provide reliable feed supplements that support poultry health, improve performance, and help farmers achieve consistent results. Our products are sourced from trusted manufacturers and selected to meet the practical needs of modern poultry production.',
         buttonText: 'Learn More',
         mainImage: '/images/about/first.jpg',
         floatingImage: '/images/about/third.jpg'
@@ -194,8 +194,8 @@ const slides: Slide[] = [
     {
         id: 2,
         subtitle: 'Experience Pure Quality',
-        title: 'ORGANIC FARMING NATURAL WELLNESS',
-        description: 'Our commitment to sustainable farming practices ensures that every product meets the highest standards of quality. We work directly with local farmers to bring you the freshest, most nutritious poultry products available.',
+        title: 'Reliable Nutrition, Practical Solutions',
+        description: 'We focus on quality-driven feed solutions that strengthen gut health, improve feed efficiency, and support overall flock performance. Our approach is built on technical expertise, consistent supply, and close collaboration with distributors and poultry professionals.',
         buttonText: 'Explore Products',
         mainImage: '/images/about/sixth.jpg',
         floatingImage: '/images/about/seventh.jpg'
@@ -203,8 +203,8 @@ const slides: Slide[] = [
     {
         id: 3,
         subtitle: 'Building a Better Tomorrow',
-        title: 'ETHICAL PRACTICES HEALTHY LIVING',
-        description: 'Join us in our mission to create a more sustainable future. Through ethical farming practices and dedication to animal welfare, we are setting new standards in the industry while delivering exceptional products to your table.',
+        title: 'Committed to Better Farm Outcomes',
+        description: 'Through responsible sourcing, technical guidance, and dependable product performance, we aim to support healthier flocks and stronger farm results. Our goal is to help poultry producers manage challenges effectively while maintaining productivity and quality.',
         buttonText: 'Our Story',
         mainImage: '/images/about/third.jpg',
         floatingImage: '/images/about/second.jpg'

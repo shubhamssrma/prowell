@@ -98,6 +98,10 @@ const authSlice = createSlice({
         //     state.loading = false;
         //     state.error = null;
         // },
+        logoutUser(state) {
+            state.loggedInUser = { user: null, token: null }
+            localStorage.removeItem('user')
+        }
     },
     extraReducers: (builder) => {
         // Login User
@@ -116,11 +120,9 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             });
-
-
     },
 });
 
-// export const { resetLeads } = leadSlice.actions;
+export const { logoutUser } = authSlice.actions;
 
 export default authSlice.reducer;
