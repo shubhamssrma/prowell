@@ -2,10 +2,11 @@ import { ApiService } from './api.service';
 import { API_BASE_URLS } from '@/config/api.config';
 // import type { BookingListResponse, CreateFollowUpRequest, CreateLeadBookingRequest, CreateLeadBookingReseponse, CreateLeadRequest, FollowUp, FollowUpResponse, Lead, LeadListResponse, LeadResponse, PropertyListResponse, UpdateLeadBookingRequest, UploadFileRequest, UploadFileResponse } from '@/types/lead.types';
 import { API_ENDPOINTS } from '@/config/api.config';
-import { LoginResponse, UserLoginRequest } from '@/types/auth.types';
+import { ContactRequest, ContactResponse, LoginResponse, UserLoginRequest } from '@/types/auth.types';
 
 // Service instance for Property Management API
 const AuthManagementService = new ApiService(API_BASE_URLS.AUTH);
+const ContactAPIService = new ApiService(API_BASE_URLS.PRODUCTS_MANAGEMENT)
 
 class AuthService {
     /**
@@ -15,6 +16,16 @@ class AuthService {
         const url = `${API_ENDPOINTS.USERS.LOGIN}`;
         return AuthManagementService.post<LoginResponse>(url, data);
     }
+
+    /**
+   * Contact User 
+   */
+    async ContactUser(data: ContactRequest): Promise<ContactResponse> {
+        const url = `${API_ENDPOINTS.CONTACT}`;
+        return ContactAPIService.post<ContactResponse>(url, data);
+    }
+
+
 }
 
 export const authService = new AuthService();

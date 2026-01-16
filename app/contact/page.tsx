@@ -134,32 +134,64 @@
 
 'use client'
 import React, { useState } from 'react';
-import { Phone, Mail, MessageSquare, MapPin, Send } from 'lucide-react';
+import { Phone, Mail, MessageSquare, MapPin, Send, Loader2 } from 'lucide-react';
 import CTA from '@/components/ui/CTA';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { contactUser } from '@/store/slices/authSlice';
+import { toast } from 'react-toastify';
 
 export default function ContactUsPage() {
+  const dispatch = useAppDispatch()
+  const { loading, error } = useAppSelector(state => state.auth)
   const [activeTab, setActiveTab] = useState<'distributor' | 'other'>('distributor');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    countryCode: "+91",
     contact: '',
     message: ''
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('Form submitted:', { ...formData, inquiryType: activeTab });
-    alert(`${activeTab === 'distributor' ? 'Distributor/Dealer' : 'Other'} inquiry submitted successfully!`);
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      contact: '',
-      message: ''
-    });
+    // alert(`${activeTab === 'distributor' ? 'Distributor/Dealer' : 'Other'} inquiry submitted successfully!`);
+    // setFormData({
+    //   firstName: '',
+    //   lastName: '',
+    //   email: '',
+    //   contact: '',
+    //   message: ''
+    // });
+
+    let payload = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      contactNumber: formData.countryCode + formData.contact,
+      message: formData.message,
+      inquiryType: activeTab === 'distributor' ? '1' : '2',
+      officeType: activeTab == "distributor" ? "Registered Office" : "Zonal Office"
+    }
+
+    const resp = await dispatch(contactUser(payload)).unwrap()
+    console.log(resp)
+    if (resp.success) {
+      toast.success(resp.message)
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        countryCode: '',
+        contact: '',
+        message: ''
+      });
+    } else {
+      toast.error(resp.message)
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -276,10 +308,10 @@ export default function ContactUsPage() {
                       Contact Number
                     </label>
                     <div className="flex gap-2">
-                      <select className="px-3 py-3 rounded-lg border border-gray-300 bg-white outline-none">
-                        <option>+91</option>
-                        <option>+971</option>
-                        <option>+1</option>
+                      <select value={formData.countryCode} name="countryCode" onChange={handleChange} className="px-3 py-3 rounded-lg border border-gray-300 bg-white outline-none">
+                        <option value="+91">+91</option>
+                        <option value="+971">+971</option>
+                        <option value="+1">+1</option>
                       </select>
                       <input
                         type="tel"
@@ -315,13 +347,24 @@ export default function ContactUsPage() {
 
                 <button
                   onClick={handleSubmit}
+                  disabled={loading}
                   className={`w-full py-4 px-6 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 ${activeTab === 'distributor'
                     ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700'
                     : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
                     }`}
                 >
-                  <Send size={20} />
-                  Send Message
+                  {
+                    loading ?
+                      <>
+                        <Loader2 className='animate-spin' size={20} />
+                        Sending...
+                      </>
+                      :
+                      <>
+                        <Send size={20} />
+                        Send Message
+                      </>
+                  }
                 </button>
               </div>
             </div>

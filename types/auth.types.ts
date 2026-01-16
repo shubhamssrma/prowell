@@ -17,3 +17,18 @@ export interface LoginResponse {
         token: string
     }
 }
+
+export interface ContactRequest {
+    firstName: string;
+    lastName: string;
+    email: string;
+    contactNumber: string;
+    message: string;
+    inquiryType: string;
+    officeType: string;
+}
+
+export interface ContactResponse {
+    success: boolean;
+    message: string;
+}

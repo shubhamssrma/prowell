@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk, PayloadAction, ActionReducerMapBuilder, 
 // import { API_ENDPOINTS } from '@/config/api.config';
 // import { toast } from "react-toastify";
 import { authService } from '@/services/auth.service';
-import { LoginResponse, User, UserLoginRequest } from '@/types/auth.types';
+import { ContactRequest, ContactResponse, LoginResponse, User, UserLoginRequest } from '@/types/auth.types';
 import { Product } from '@/types/product.types';
 import { productService } from '@/services/product.service';
 
@@ -85,6 +85,35 @@ export const loginUser = createAsyncThunk(
 
 
 
+
+
+export const contactUser = createAsyncThunk(
+    'auth/contactUser',
+    async (data: ContactRequest, { rejectWithValue }) => {
+        try {
+            const response: ContactResponse = await authService.ContactUser(data);
+            // const leadData = (response as any) || response;
+            // toast.success(response?.message || "Login Successfully");
+            console.log(response)
+            if (!response.success) {
+                return rejectWithValue(response.message || 'Error in contacting user');
+            }
+
+            return response;
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                return rejectWithValue(error.message);
+            }
+
+            return rejectWithValue('Error in contacting user');
+        }
+
+    }
+);
+
+
+
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -117,6 +146,22 @@ const authSlice = createSlice({
             }
             )
             .addCase(loginUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+
+
+        // Contact user
+        builder
+            .addCase(contactUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(contactUser.fulfilled, (state, action) => {
+                state.loading = false;
+            }
+            )
+            .addCase(contactUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });

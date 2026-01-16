@@ -20,7 +20,7 @@ export const API_ENDPOINTS = {
     GET_BY_REGIONS: "/products/productsByRegions",
     GET_BY_SLUG: "/products",
     GET_BY_ID: "/products/product-by-id",
-    GET_ALL_FEATURED:'/products/featured'
+    GET_ALL_FEATURED: '/products/featured'
   },
   CATEGORIES: {
     GET_ALL: '/categories',
@@ -45,7 +45,9 @@ export const API_ENDPOINTS = {
 
   USERS: {
     LOGIN: "/login",
-  }
+  },
+  CONTACT: "/contact"
+
 
   // =====================================
   // enpoints for CRM management [END]
