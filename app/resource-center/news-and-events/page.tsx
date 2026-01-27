@@ -88,11 +88,11 @@ const ImageGallery: React.FC = () => {
   const [liked, setLiked] = useState<Set<number>>(new Set());
 
   const images: Image[] = [
-    { id: 1, url: '/images/gallery/image1.jpeg', title: 'Mountain Vista', category: 'Events' },
-    { id: 2, url: '/images/gallery/image2.jpg', title: 'Forest Path', category: 'Events' },
-    { id: 3, url: '/images/gallery/image3.jpg', title: 'Sunset Beach', category: 'News' },
-    { id: 4, url: '/images/gallery/image4.jpg', title: 'City Lights', category: 'News' },
-    { id: 5, url: '/images/gallery/image5.jpg', title: 'Misty Morning', category: 'Events' },
+    { id: 1, url: '/images/gallery/image1.jpeg', title: '36th Annual General Meeting - Poultry Federation of India', category: 'Events' },
+    { id: 2, url: '/images/gallery/image2.jpg', title: 'VIV Asia', category: 'Events' },
+    { id: 3, url: '/images/gallery/image3.jpg', title: 'VIV Asia - Company Meeting', category: 'News' },
+    { id: 4, url: '/images/gallery/image4.jpg', title: '17th Poultry India Expo 2025', category: 'News' },
+    { id: 5, url: '/images/gallery/image5.jpg', title: 'North poultry Vets Summit', category: 'Events' },
   ];
 
   const categories = ['All', ...Array.from(new Set(images.map(img => img.category)))];
@@ -209,7 +209,7 @@ const ImageGallery: React.FC = () => {
             <img
               src={selectedImage.url}
               alt={selectedImage.title}
-              className="w-full h-auto rounded-lg shadow-2xl"
+              className="w-full h-[80vh] object-contain rounded-lg shadow-2xl"
             />
             <div className="mt-6 text-center">
               <h2 className="text-white text-3xl font-bold mb-2">{selectedImage.title}</h2>
