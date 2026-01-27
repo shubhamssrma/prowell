@@ -157,6 +157,7 @@ const Navbar = () => {
                     dropdownItems: [
                         { label: 'Our Edge', link: '/about/our-edge' },
                         { label: 'Our Team', link: '/about/our-team' },
+                        { label: 'Certificates', link: '/about/certificates' },
                     ],
                 },
                 {

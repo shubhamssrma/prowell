@@ -169,6 +169,7 @@
 
 'use client';
 
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 interface Slide {
@@ -177,6 +178,7 @@ interface Slide {
     title: string;
     description: string;
     buttonText: string;
+    href:string;
     mainImage: string;
     floatingImage: string;
 }
@@ -188,6 +190,7 @@ const slides: Slide[] = [
         title: 'Supporting Poultry Health for a Sustainable Future',
         description: 'At Prowell Lifesciences, we provide reliable feed supplements that support poultry health, improve performance, and help farmers achieve consistent results. Our products are sourced from trusted manufacturers and selected to meet the practical needs of modern poultry production.',
         buttonText: 'Learn More',
+        href: "/about/our-team",
         mainImage: '/images/about/first.jpg',
         floatingImage: '/images/about/third.jpg'
     },
@@ -197,6 +200,7 @@ const slides: Slide[] = [
         title: 'Reliable Nutrition, Practical Solutions',
         description: 'We focus on quality-driven feed solutions that strengthen gut health, improve feed efficiency, and support overall flock performance. Our approach is built on technical expertise, consistent supply, and close collaboration with distributors and poultry professionals.',
         buttonText: 'Explore Products',
+        href: "/products/by-species",
         mainImage: '/images/about/sixth.jpg',
         floatingImage: '/images/about/seventh.jpg'
     },
@@ -206,6 +210,7 @@ const slides: Slide[] = [
         title: 'Committed to Better Farm Outcomes',
         description: 'Through responsible sourcing, technical guidance, and dependable product performance, we aim to support healthier flocks and stronger farm results. Our goal is to help poultry producers manage challenges effectively while maintaining productivity and quality.',
         buttonText: 'Our Story',
+        href: "/about/our-edge",
         mainImage: '/images/about/third.jpg',
         floatingImage: '/images/about/second.jpg'
 
@@ -251,11 +256,10 @@ const PoultryHeroSection: React.FC = () => {
                         {slides.map((slide, index) => (
                             <div
                                 key={slide.id}
-                                className={`transition-all duration-700 ${
-                                    index === currentSlide
+                                className={`transition-all duration-700 ${index === currentSlide
                                         ? 'opacity-100 translate-x-0 relative'
                                         : 'opacity-0 -translate-x-8 absolute'
-                                }`}
+                                    }`}
                             >
                                 <p className="text-sm md:text-base text-green-700 tracking-wide">
                                     {slide.subtitle}
@@ -272,9 +276,9 @@ const PoultryHeroSection: React.FC = () => {
                                 </p>
 
                                 <div className="pt-2">
-                                    <button className="bg-green-600 hover:bg-green-700 text-white font-medium px-12 py-3.5 rounded-sm transition-colors duration-300 text-sm md:text-base">
+                                    <Link href={slide.href} className="bg-green-600 inline-block hover:bg-green-700 text-white font-medium px-12 py-3.5 rounded-sm transition-colors duration-300 text-sm md:text-base">
                                         {slide.buttonText}
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         ))}
@@ -285,11 +289,10 @@ const PoultryHeroSection: React.FC = () => {
                         {slides.map((slide, index) => (
                             <div
                                 key={slide.id}
-                                className={`transition-all duration-700 ${
-                                    index === currentSlide
+                                className={`transition-all duration-700 ${index === currentSlide
                                         ? 'opacity-100 translate-x-0 relative'
                                         : 'opacity-0 translate-x-8 absolute inset-0'
-                                }`}
+                                    }`}
                             >
                                 <div className="relative w-full max-w-md mx-auto">
                                     {/* Main circular image */}
@@ -323,11 +326,10 @@ const PoultryHeroSection: React.FC = () => {
                     <button
                         key={index}
                         onClick={() => goToSlide(index)}
-                        className={`transition-all duration-300 rounded-full ${
-                            index === currentSlide
+                        className={`transition-all duration-300 rounded-full ${index === currentSlide
                                 ? 'w-8 h-3 bg-cyan-500'
                                 : 'w-3 h-3 bg-green-400 hover:bg-cyan-600'
-                        }`}
+                            }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />
                 ))}

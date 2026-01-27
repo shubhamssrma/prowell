@@ -178,7 +178,7 @@ const ProductsShowcasePage: React.FC = () => {
             Our Products
           </h1>
           <p className="text-lg sm:text-xl text-cyan-50 text-center">
-            Explore our innovative solutions designed to transform your business
+            Explore our innovative feed supplement solutions to strengthen animal health.
           </p>
         </div>
       </div>

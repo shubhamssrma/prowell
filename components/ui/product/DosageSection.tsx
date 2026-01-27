@@ -54,6 +54,7 @@ export function DosageSection() {
     productDetails?.applicationUsage
   );
 
+  console.log(productDetails?.applicationUsage)
 
   return (
     <section className="py-20 bg-white">
@@ -91,14 +92,20 @@ export function DosageSection() {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {productDetails?.dosage.map((obj, i) => {
-                return (
-                  <tr key={i}>
-                    <td className="px-6 py-4">{obj.species.name}</td>
-                    <td className="px-6 py-4">{obj.dosage}</td>
+              {
+                productDetails?.dosage.length === 0 ?
+                  <tr>
+                    <td className="px-6 py-4 text-center text-gray-500" colSpan={2}>No data available</td>
                   </tr>
-                )
-              })}
+                  :
+                  productDetails?.dosage.map((obj, i) => {
+                    return (
+                      <tr key={i}>
+                        <td className="px-6 py-4">{obj.species.name}</td>
+                        <td className="px-6 py-4">{obj.dosage}</td>
+                      </tr>
+                    )
+                  })}
             </tbody>
           </table>
         </div>
