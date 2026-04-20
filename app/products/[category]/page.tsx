@@ -164,6 +164,34 @@ const ProductsShowcasePage: React.FC = () => {
     }
   }, [urlParams, debouncedSearch])
 
+  useEffect(() => {
+    setSelectedCategory('All');
+  }, [urlParams.category]);
+
+  const getProductFilterList = (product: Product): { _id: string; name: string }[] => {
+    if (urlParams.category === 'by-species') return product.species;
+    if (urlParams.category === 'by-segment') return product.categories;
+    if (urlParams.category === 'by-application') return product.applications;
+    if (urlParams.category === 'by-region') return product.regions;
+    return [];
+  };
+
+  const filterTabs = React.useMemo(() => {
+    const map = new Map<string, string>();
+    products.forEach(product => {
+      getProductFilterList(product).forEach(item => {
+        if (item?._id) map.set(item._id, item.name);
+      });
+    });
+    return Array.from(map, ([id, name]) => ({ id, name }));
+  }, [products, urlParams.category]);
+
+  const filteredProducts = selectedCategory === 'All'
+    ? products
+    : products.filter(product =>
+        getProductFilterList(product).some(item => item._id === selectedCategory)
+      );
+
 
   // if (loading) {
   //   return "loading..."
@@ -202,7 +230,7 @@ const ProductsShowcasePage: React.FC = () => {
             {/* View Toggle */}
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600 hidden sm:block">
-                {products.length} products
+                {filteredProducts.length} products
               </span>
               <div className="flex items-center gap-2 border-2 border-cyan-200 rounded-lg p-1">
                 <button
@@ -224,20 +252,31 @@ const ProductsShowcasePage: React.FC = () => {
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-cyan-100">
-            {/* {categories.map((category) => (
+          {filterTabs.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-cyan-100">
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category
+                onClick={() => setSelectedCategory('All')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === 'All'
                   ? 'bg-gradient-to-r from-cyan-500 to-green-500 text-white shadow-md'
                   : 'bg-cyan-50 text-gray-700 hover:bg-cyan-100'
                   }`}
               >
-                {category}
+                All
               </button>
-            ))} */}
-          </div>
+              {filterTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedCategory(tab.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === tab.id
+                    ? 'bg-gradient-to-r from-cyan-500 to-green-500 text-white shadow-md'
+                    : 'bg-cyan-50 text-gray-700 hover:bg-cyan-100'
+                    }`}
+                >
+                  {tab.name}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Products Display */}
@@ -257,7 +296,7 @@ const ProductsShowcasePage: React.FC = () => {
               </div>
             </div>
             :
-            products.length === 0 ? (
+            filteredProducts.length === 0 ? (
               <div className="text-center py-16">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-50 rounded-full mb-4">
                   <Search className="w-8 h-8 text-cyan-500" />
@@ -276,7 +315,7 @@ const ProductsShowcasePage: React.FC = () => {
                   : 'space-y-6'
               }>
                 {
-                  products.map((product) => (
+                  filteredProducts.map((product) => (
                     <div
                       key={product._id}
                       onClick={() => handleProductClick(product)}
