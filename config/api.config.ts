@@ -1,9 +1,9 @@
 // API Base URLs for different microservices
 export const API_BASE_URLS = {
   // AUTH: 'http://localhost:5000/api/auth',
-  AUTH: 'https://prowell-backend.onrender.com/api/auth',
+  AUTH: 'https://api.prowell.asia/api/auth',
   // PRODUCTS_MANAGEMENT: 'http://localhost:5000/api'
-  PRODUCTS_MANAGEMENT: 'https://prowell-backend.onrender.com/api'
+  PRODUCTS_MANAGEMENT: 'https://api.prowell.asia/api'
 } as const;
 
 // API Endpoints

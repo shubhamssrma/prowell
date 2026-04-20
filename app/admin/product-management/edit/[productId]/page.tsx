@@ -262,7 +262,7 @@ const ProductForm: React.FC = () => {
 
     try {
       // const baseURL = "http://localhost:5000/api"
-      const baseURL = "https://prowell-backend.onrender.com/api"
+      const baseURL = "https://api.prowell.asia/api"
       const response = await fetch(`${baseURL}/products/${productId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
