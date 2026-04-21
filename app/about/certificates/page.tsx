@@ -147,12 +147,12 @@ export default function CertificateShowcase() {
                                     <Calendar className="w-4 h-4 mr-2 text-blue-400" />
                                     <span className="text-sm">{cert.date}</span>
                                 </div>
-
+{/* 
                                 {cert.description && (
                                     <p className="text-white/70 text-sm line-clamp-2">
                                         {cert.description}
                                     </p>
-                                )}
+                                )} */}
 
                                 <div className="mt-4 flex items-center text-green-400 text-sm font-semibold group-hover:text-green-300">
                                     <span>View Certificate</span>

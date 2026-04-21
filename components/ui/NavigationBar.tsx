@@ -157,7 +157,15 @@ const Navbar = () => {
                     dropdownItems: [
                         { label: 'Our Edge', link: '/about/our-edge' },
                         { label: 'Our Team', link: '/about/our-team' },
-                        { label: 'Certificates', link: '/about/certificates' },
+                        {
+                            label: 'Compliance',
+                            link: '#',
+                            hasSubmenu: true,
+                            submenu: [
+                                { label: 'Certificates', link: '/about/certificates' },
+                                { label: 'Annual Reports', link: '/about/annual-reports' },
+                            ],
+                        },
                     ],
                 },
                 {
@@ -216,7 +224,7 @@ const Navbar = () => {
                                             {/* Desktop Dropdown */}
                                             {openDesktopDropdown === item.id && item.dropdownItems && (
                                                 <div
-                                                    className="absolute left-0 top-full pt-2 min-w-[280px]"
+                                                    className="absolute left-0 top-full pt-2 w-max min-w-[150px]"
                                                     onMouseLeave={() => {
                                                         setOpenDesktopDropdown(null);
                                                         setHoveredSubmenu(null);
@@ -247,7 +255,7 @@ const Navbar = () => {
                                                                             {/* Nested Submenu */}
                                                                             {cat.hasSubmenu && hoveredSubmenu === cat.label && cat.submenu && (
                                                                                 <div
-                                                                                    className="absolute left-full top-0 ml-0 min-w-[280px] z-50"
+                                                                                    className="absolute left-full top-0 ml-0 w-max min-w-[150px] z-50"
                                                                                     onMouseEnter={() => setHoveredSubmenu(cat.label)}
                                                                                     onMouseLeave={() => setHoveredSubmenu(null)}
                                                                                 >
@@ -286,13 +294,44 @@ const Navbar = () => {
                                                         ) : (
                                                             <div className="py-2">
                                                                 {item.dropdownItems.map((dropItem, idx) => (
-                                                                    <a
-                                                                        key={idx}
-                                                                        href={dropItem.link}
-                                                                        className="block px-5 py-2.5 text-[#4a4a4a] hover:bg-gray-50 hover:text-[#5b4b9e] text-[14px] transition-colors"
-                                                                    >
-                                                                        {dropItem.label}
-                                                                    </a>
+                                                                    dropItem.hasSubmenu ? (
+                                                                        <div
+                                                                            key={idx}
+                                                                            className="relative"
+                                                                            onMouseEnter={() => setHoveredSubmenu(dropItem.label)}
+                                                                            onMouseLeave={() => setHoveredSubmenu(null)}
+                                                                        >
+                                                                            <div className="flex items-center justify-between px-5 py-2.5 text-[#4a4a4a] hover:bg-gray-50 hover:text-[#5b4b9e] text-[14px] transition-colors cursor-pointer">
+                                                                                <span>{dropItem.label}</span>
+                                                                                <ChevronRight className="w-4 h-4" />
+                                                                            </div>
+                                                                            {hoveredSubmenu === dropItem.label && dropItem.submenu && (
+                                                                                <div className="absolute right-full top-0 mr-0 w-max min-w-[150px] z-50">
+                                                                                    <div className="bg-white border border-gray-200 shadow-lg rounded-md overflow-hidden">
+                                                                                        <div className="py-2">
+                                                                                            {dropItem.submenu.map((subItem, subIdx) => (
+                                                                                                <a
+                                                                                                    key={subIdx}
+                                                                                                    href={subItem.link}
+                                                                                                    className="block px-5 py-2.5 text-[#4a4a4a] hover:bg-gray-50 hover:text-[#5b4b9e] text-[14px] transition-colors"
+                                                                                                >
+                                                                                                    {subItem.label}
+                                                                                                </a>
+                                                                                            ))}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            )}
+                                                                        </div>
+                                                                    ) : (
+                                                                        <a
+                                                                            key={idx}
+                                                                            href={dropItem.link}
+                                                                            className="block px-5 py-2.5 text-[#4a4a4a] hover:bg-gray-50 hover:text-[#5b4b9e] text-[14px] transition-colors"
+                                                                        >
+                                                                            {dropItem.label}
+                                                                        </a>
+                                                                    )
                                                                 ))}
                                                             </div>
                                                         )}
@@ -415,13 +454,42 @@ const Navbar = () => {
                                                 ) : (
                                                     <>
                                                         {item.dropdownItems.map((dropItem, dropIdx) => (
-                                                            <a
-                                                                key={dropIdx}
-                                                                href={dropItem.link}
-                                                                className="block px-5 py-3 text-[#4a4a4a] pl-8 border-b border-gray-100"
-                                                            >
-                                                                {dropItem.label}
-                                                            </a>
+                                                            dropItem.hasSubmenu ? (
+                                                                <div key={dropIdx} className="border-b border-gray-100">
+                                                                    <button
+                                                                        onClick={() => setOpenMobileSubmenu(
+                                                                            openMobileSubmenu === dropItem.label ? null : dropItem.label
+                                                                        )}
+                                                                        className="flex items-center justify-between w-full px-5 py-3 text-[#4a4a4a] font-medium pl-8"
+                                                                    >
+                                                                        <span>{dropItem.label}</span>
+                                                                        <span className="text-md font-light">
+                                                                            {openMobileSubmenu === dropItem.label ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                                                                        </span>
+                                                                    </button>
+                                                                    {openMobileSubmenu === dropItem.label && dropItem.submenu && (
+                                                                        <div className="bg-gray-50">
+                                                                            {dropItem.submenu.map((subItem, subIdx) => (
+                                                                                <a
+                                                                                    key={subIdx}
+                                                                                    href={subItem.link}
+                                                                                    className="block px-5 py-3 text-[#4a4a4a] pl-12 border-b border-gray-100"
+                                                                                >
+                                                                                    {subItem.label}
+                                                                                </a>
+                                                                            ))}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            ) : (
+                                                                <a
+                                                                    key={dropIdx}
+                                                                    href={dropItem.link}
+                                                                    className="block px-5 py-3 text-[#4a4a4a] pl-8 border-b border-gray-100"
+                                                                >
+                                                                    {dropItem.label}
+                                                                </a>
+                                                            )
                                                         ))}
                                                     </>
                                                 )}
