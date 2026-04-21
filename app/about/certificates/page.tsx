@@ -103,9 +103,9 @@ export default function CertificateShowcase() {
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
                             Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400">Certifications</span>
                         </h1>
-                        <p className="text-xl text-white/90 max-w-2xl mx-auto">
+                        {/* <p className="text-xl text-white/90 max-w-2xl mx-auto">
                             Celebrating excellence through recognized certifications and awards
-                        </p>
+                        </p> */}
                     </div>
                 </div>
             </header>
@@ -147,12 +147,12 @@ export default function CertificateShowcase() {
                                     <Calendar className="w-4 h-4 mr-2 text-blue-400" />
                                     <span className="text-sm">{cert.date}</span>
                                 </div>
-{/* 
+
                                 {cert.description && (
                                     <p className="text-white/70 text-sm line-clamp-2">
                                         {cert.description}
                                     </p>
-                                )} */}
+                                )}
 
                                 <div className="mt-4 flex items-center text-green-400 text-sm font-semibold group-hover:text-green-300">
                                     <span>View Certificate</span>
