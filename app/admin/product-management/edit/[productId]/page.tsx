@@ -122,6 +122,8 @@ const ProductForm: React.FC = () => {
 
   const [uploading, setUploading] = useState(false);
   const [uploadingGallery, setUploadingGallery] = useState(false);
+  const [uploadingSpecSheet, setUploadingSpecSheet] = useState(false);
+  const [uploadingSampleFile, setUploadingSampleFile] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
 
@@ -192,8 +194,9 @@ const ProductForm: React.FC = () => {
           publicId: result.public_id,
         },
       }));
+      toast.success('Featured image uploaded successfully');
     } catch (error) {
-      alert('Failed to upload image');
+      toast.error('Failed to upload featured image');
     } finally {
       setUploading(false);
     }
@@ -217,10 +220,57 @@ const ProductForm: React.FC = () => {
           },
         ],
       }));
+      toast.success('Gallery image uploaded successfully');
     } catch (error) {
-      alert('Failed to upload image');
+      toast.error('Failed to upload gallery image');
     } finally {
       setUploadingGallery(false);
+    }
+  };
+
+  const handleSpecSheetUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingSpecSheet(true);
+    try {
+      const res = await uploadFileToCloudinary(file);
+      setFormData(prev => ({
+        ...prev,
+        specSheet: {
+          url: res.secure_url,
+          name: file.name,
+          publicId: res.public_id,
+        },
+      }));
+      toast.success('Spec sheet uploaded successfully');
+    } catch (error) {
+      toast.error('Failed to upload spec sheet');
+    } finally {
+      setUploadingSpecSheet(false);
+    }
+  };
+
+  const handleSampleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingSampleFile(true);
+    try {
+      const res = await uploadFileToCloudinary(file);
+      setFormData(prev => ({
+        ...prev,
+        sampleFile: {
+          url: res.secure_url,
+          name: file.name,
+          publicId: res.public_id,
+        },
+      }));
+      toast.success('Sample file uploaded successfully');
+    } catch (error) {
+      toast.error('Failed to upload sample file');
+    } finally {
+      setUploadingSampleFile(false);
     }
   };
 
@@ -805,24 +855,22 @@ const ProductForm: React.FC = () => {
                   Spec Sheet (PDF/DOC)
                 </label>
 
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={async (e) => {
-                    if (!e.target.files?.[0]) return;
-                    const res = await uploadFileToCloudinary(e.target.files[0]);
-                    setFormData(prev => ({
-                      ...prev,
-                      specSheet: {
-                        url: res.secure_url,
-                        name: e.target.files![0].name,
-                        publicId: res.public_id,
-                      },
-                    }));
-                  }}
-                />
+                <div className="flex items-center gap-3">
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleSpecSheetUpload}
+                    disabled={uploadingSpecSheet}
+                  />
+                  {uploadingSpecSheet && (
+                    <span className="flex items-center text-sm text-blue-600">
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Uploading...
+                    </span>
+                  )}
+                </div>
 
-                {formData.specSheet && (
+                {!uploadingSpecSheet && formData.specSheet && (
                   <p className="text-sm text-green-600 mt-1">
                     Uploaded: {formData.specSheet.name}
                   </p>
@@ -837,24 +885,22 @@ const ProductForm: React.FC = () => {
                   Sample File
                 </label>
 
-                <input
-                  type="file"
-                  accept=".pdf,image/*"
-                  onChange={async (e) => {
-                    if (!e.target.files?.[0]) return;
-                    const res = await uploadFileToCloudinary(e.target.files[0]);
-                    setFormData(prev => ({
-                      ...prev,
-                      sampleFile: {
-                        url: res.secure_url,
-                        name: e.target.files![0].name,
-                        publicId: res.public_id,
-                      },
-                    }));
-                  }}
-                />
+                <div className="flex items-center gap-3">
+                  <input
+                    type="file"
+                    accept=".pdf,image/*"
+                    onChange={handleSampleFileUpload}
+                    disabled={uploadingSampleFile}
+                  />
+                  {uploadingSampleFile && (
+                    <span className="flex items-center text-sm text-blue-600">
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Uploading...
+                    </span>
+                  )}
+                </div>
 
-                {formData.sampleFile && (
+                {!uploadingSampleFile && formData.sampleFile && (
                   <p className="text-sm text-green-600 mt-1">
                     Uploaded: {formData.sampleFile.name}
                   </p>

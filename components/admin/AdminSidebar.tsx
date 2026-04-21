@@ -304,11 +304,11 @@ export default function AdminSidebar() {
         <div className="flex items-center justify-between mb-3">
           <Link className={`flex items-center gap-3 hover:bg-green-50 w-full p-1 rounded-sm`} href='/admin/profile'>
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-100 to-green-100 flex items-center justify-center">
-              <span className="text-green-700 font-semibold text-sm">JD</span>
+              <span className="text-green-700 font-semibold text-sm">PA</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-gray-900 truncate">
-                John Doe
+                Prowell Admin
               </p>
               <p className="text-xs text-gray-500 truncate">Verified User</p>
             </div>

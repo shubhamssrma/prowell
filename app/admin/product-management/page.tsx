@@ -389,6 +389,7 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                     <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Categories</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Form</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Application Usage</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Created At</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Action</th>
                   </tr>
                 </thead>
@@ -410,7 +411,7 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                     :
                     products.length == 0 ?
                       <tr>
-                        <td colSpan={8} className="py-16 text-center">
+                        <td colSpan={6} className="py-16 text-center">
                           <div className="flex flex-col items-center justify-center">
                             <p className="text-black font-medium">No Product Found!</p>
                           </div>
@@ -435,6 +436,16 @@ const LeadsDashboard = ({ type }: { type: string }) => {
                             </td>
                             <td className="px-4 py-4">
                               <p className="font-normal text-sm">{lead.applicationUsage || "-"}</p>
+                            </td>
+                            <td className="px-4 py-4">
+                              {lead.createdAt ? (
+                                <div className="text-sm">
+                                  <p className="font-normal">{formatDateTime(lead.createdAt)?.formattedDate}</p>
+                                  <p className="text-xs text-gray-500">{formatDateTime(lead.createdAt)?.formattedTime}</p>
+                                </div>
+                              ) : (
+                                <p className="font-normal text-sm">-</p>
+                              )}
                             </td>
                             <td className="px-4 py-4">
                               <div className="relative">
